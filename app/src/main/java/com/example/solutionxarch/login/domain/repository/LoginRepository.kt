@@ -1,4 +1,4 @@
-package com.example.solutionxarch.login.domain
+package com.example.solutionxarch.login.domain.repository
 
 import com.example.solutionxarch.login.domain.models.User
 

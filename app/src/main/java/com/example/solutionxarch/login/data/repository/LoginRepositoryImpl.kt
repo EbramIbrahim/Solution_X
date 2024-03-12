@@ -5,7 +5,7 @@ import com.example.solutionxarch.login.data.local.UserEntity
 import com.example.solutionxarch.login.data.mapper.Mapper
 import com.example.solutionxarch.login.data.models.UserDto
 import com.example.solutionxarch.login.data.remote.Api
-import com.example.solutionxarch.login.domain.LoginRepository
+import com.example.solutionxarch.login.domain.repository.LoginRepository
 import com.example.solutionxarch.login.domain.models.User
 
 class LoginRepositoryImpl(
