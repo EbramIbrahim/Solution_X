@@ -10,6 +10,8 @@ class LoginWithEmailUC(
 ) {
 
     operator fun invoke(): Flow<User> = flow {
-        emit(loginRepository.loginUserWithEmail())
+        try {
+            emit(loginRepository.loginUserWithEmail())
+        } catch (e: Exception){}
     }
 }

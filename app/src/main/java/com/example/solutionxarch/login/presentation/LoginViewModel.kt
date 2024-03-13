@@ -7,5 +7,4 @@ class LoginViewModel(
     private val userCase: LoginUseCase
 ): ViewModel() {
 
-
 }

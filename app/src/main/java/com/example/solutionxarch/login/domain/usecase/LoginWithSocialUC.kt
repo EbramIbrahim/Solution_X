@@ -10,6 +10,9 @@ class LoginWithSocialUC(
 ) {
 
     operator fun invoke(): Flow<User> = flow {
-        emit(loginRepository.loginUserWithSocial())
+
+        try {
+            emit(loginRepository.loginUserWithSocial())
+        } catch (e: Exception) {}
     }
 }

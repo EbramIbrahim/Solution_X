@@ -1,11 +1,9 @@
 package com.example.solutionxarch.login.data.repository
 
 import com.example.solutionxarch.login.data.local.UserDao
-import com.example.solutionxarch.login.data.local.UserDaoImpl
-import com.example.solutionxarch.login.data.local.UserEntity
+import com.example.solutionxarch.login.data.models.UserEntity
 import com.example.solutionxarch.login.data.mapper.Mapper
 import com.example.solutionxarch.login.data.models.UserDto
-import com.example.solutionxarch.login.data.remote.Api
 import com.example.solutionxarch.login.data.remote.RemoteDataConfig
 import com.example.solutionxarch.login.domain.repository.LoginRepository
 import com.example.solutionxarch.login.domain.models.User
@@ -34,5 +32,10 @@ class LoginRepositoryImpl(
     override fun getUserFromLocal(): User {
         val user = localDatabase.getUser()
         return mapper.fromEntityToDomain(user)
+    }
+
+    override fun saveUser(user: User) {
+        val userEntity = mapper.toEntity(user)
+        localDatabase.saveUser(userEntity)
     }
 }

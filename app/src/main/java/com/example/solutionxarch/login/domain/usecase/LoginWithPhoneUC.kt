@@ -10,6 +10,8 @@ class LoginWithPhoneUC(
 ) {
 
     operator fun invoke(): Flow<User> = flow {
-        emit(loginRepository.loginUserWithPhone())
+        try {
+            emit(loginRepository.loginUserWithPhone())
+        }catch (e: Exception){}
     }
 }

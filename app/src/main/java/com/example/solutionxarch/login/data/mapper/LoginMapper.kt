@@ -1,6 +1,6 @@
 package com.example.solutionxarch.login.data.mapper
 
-import com.example.solutionxarch.login.data.local.UserEntity
+import com.example.solutionxarch.login.data.models.UserEntity
 import com.example.solutionxarch.login.data.models.UserDto
 import com.example.solutionxarch.login.domain.models.User
 
