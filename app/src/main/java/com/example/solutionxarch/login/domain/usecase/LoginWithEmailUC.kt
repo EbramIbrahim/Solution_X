@@ -2,16 +2,31 @@ package com.example.solutionxarch.login.domain.usecase
 
 import com.example.solutionxarch.login.domain.repository.LoginRepository
 import com.example.solutionxarch.login.domain.models.User
+import com.example.solutionxarch.login.common.Result
+import com.example.solutionxarch.login.common.SolutionXException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import retrofit2.HttpException
+import java.io.IOException
 
 class LoginWithEmailUC(
-    private val loginRepository: LoginRepository
+    private val loginRepository: LoginRepository,
 ) {
 
-    operator fun invoke(): Flow<User> = flow {
+    operator fun invoke(): Flow<Result<User, SolutionXException>> = flow {
         try {
-            emit(loginRepository.loginUserWithEmail())
-        } catch (e: Exception){}
+
+            val user = loginRepository.loginUserWithEmail()
+            emit(Result.Success(user))
+
+        } catch (e: HttpException) {
+
+            emit(Result.Error(SolutionXException.ServerError))
+
+        } catch (e: IOException) {
+
+            emit(Result.Error(SolutionXException.NoInternet))
+
+        }
     }
 }
