@@ -4,7 +4,7 @@ import com.example.solutionxarch.login.data.models.UserEntity
 import com.example.solutionxarch.login.data.models.UserDto
 import com.example.solutionxarch.login.domain.models.User
 
-class LoginMapper:  Mapper<User, UserDto, UserEntity>{
+object LoginMapper:  Mapper<User, UserDto, UserEntity>{
 
     override fun toDomain(data: UserDto): User {
         return User(

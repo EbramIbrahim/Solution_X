@@ -1,8 +1,8 @@
-package com.example.solutionxarch.login.data.remote
+package com.example.solutionxarch.login.domain.contracts
 
 import com.example.solutionxarch.login.data.models.UserDto
 
-interface RemoteDataConfig {
+interface LoginRemoteDataSource {
     fun loginUserWithPhone(): UserDto
     fun loginUserWithEmail(): UserDto
     fun loginUserWithSocial(): UserDto

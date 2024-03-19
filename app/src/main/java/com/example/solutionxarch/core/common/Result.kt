@@ -1,6 +1,5 @@
-package com.example.solutionxarch.login.common
+package com.example.solutionxarch.core.common
 
-typealias ErrorRoot = Exception
 
 sealed interface Result<out D, out E: Exception> {
     data class Success<out D, out E: Exception>(val data: D): Result<D, E>

@@ -1,11 +1,11 @@
 package com.example.solutionxarch.login.domain.usecase
 
+import com.example.solutionxarch.core.common.SolutionXException
 import com.example.solutionxarch.login.domain.repository.LoginRepository
 import com.example.solutionxarch.login.domain.models.User
-import com.example.solutionxarch.login.common.Result
-import com.example.solutionxarch.login.common.SolutionXException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import com.example.solutionxarch.core.common.Result
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -20,12 +20,26 @@ class LoginWithSocialUC(
             emit(Result.Success(user))
         } catch (e: HttpException) {
 
-            emit(Result.Error(SolutionXException.ServerError))
+            emit(Result.Error(SolutionXException.ServerError(e.message ?: "")))
 
         } catch (e: IOException) {
-
-            emit(Result.Error(SolutionXException.NoInternet))
-
+            emit(
+                Result.Error(
+                    SolutionXException.NoInternet(e.message ?: "")
+                )
+            )
+        } catch (e: StringIndexOutOfBoundsException) {
+            emit(
+                Result.Error(
+                    SolutionXException.RequestTimeOut(e.message ?: "")
+                )
+            )
+        } catch (e: Exception) {
+            emit(
+                Result.Error(
+                    SolutionXException.TooManyRequest(e.message ?: "")
+                )
+            )
         }
     }
 }
