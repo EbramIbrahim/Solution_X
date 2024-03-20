@@ -5,22 +5,31 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.solutionxarch.core.common.Result
 import com.example.solutionxarch.core.common.SolutionXException
+import com.example.solutionxarch.login.domain.usecase.LoginWithEmailUC
 
-import com.example.solutionxarch.login.domain.usecase.LoginUseCase
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
-    private val userCase: LoginUseCase
+    private val userCase: LoginWithEmailUC
 ): ViewModel() {
 
 
 
+    fun onEvent(event: UserLoginEvent) {
+        when(event) {
+            UserLoginEvent.LoginWithEmail -> TODO()
+            UserLoginEvent.LoginWithPhone -> TODO()
+            UserLoginEvent.LoginWithSocial -> TODO()
+        }
+    }
+
+
     fun getUser() {
         viewModelScope.launch {
-            userCase.loginWithEmailUC().collectLatest {
+            userCase().collectLatest {
                 when (it) {
-                    is Result.Error -> {
+                    is Result.Failure -> {
                         when (it.error) {
                             is SolutionXException.NoInternet -> {
                                 Log.e("error", it.error.message.toString())

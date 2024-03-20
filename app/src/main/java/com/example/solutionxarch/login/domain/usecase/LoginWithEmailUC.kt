@@ -5,6 +5,7 @@ import com.example.solutionxarch.login.domain.repository.LoginRepository
 import com.example.solutionxarch.login.domain.models.User
 import com.example.solutionxarch.core.common.Result
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import java.io.IOException
@@ -21,24 +22,36 @@ class LoginWithEmailUC(
 
         } catch (e: HttpException) {
 
-            emit(Result.Error(SolutionXException.ServerError(e.message ?: "")))
+            emit(
+                Result.Failure(
+                    SolutionXException.ServerError(
+                        e.message ?: ""
+                    )
+                )
+            )
 
         } catch (e: IOException) {
             emit(
-                Result.Error(
-                    SolutionXException.NoInternet(e.message ?: "")
+                Result.Failure(
+                    SolutionXException.NoInternet(
+                        e.message ?: ""
+                    )
                 )
             )
         } catch (e: StringIndexOutOfBoundsException) {
             emit(
-                Result.Error(
-                    SolutionXException.RequestTimeOut(e.message ?: "")
+                Result.Failure(
+                    SolutionXException.RequestTimeOut(
+                        e.message ?: ""
+                    )
                 )
             )
         } catch (e: Exception) {
             emit(
-                Result.Error(
-                    SolutionXException.TooManyRequest(e.message ?: "")
+                Result.Failure(
+                    SolutionXException.TooManyRequest(
+                        e.message ?: ""
+                    )
                 )
             )
         }

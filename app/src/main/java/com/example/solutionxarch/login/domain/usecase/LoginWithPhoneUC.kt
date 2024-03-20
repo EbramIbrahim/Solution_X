@@ -20,23 +20,23 @@ class LoginWithPhoneUC(
             emit(Result.Success(user))
         } catch (e: HttpException) {
 
-            emit(Result.Error(SolutionXException.ServerError(e.message ?: "")))
+            emit(Result.Failure(SolutionXException.ServerError(e.message ?: "")))
 
         } catch (e: IOException) {
             emit(
-                Result.Error(
+                Result.Failure(
                     SolutionXException.NoInternet(e.message ?: "")
                 )
             )
         } catch (e: StringIndexOutOfBoundsException) {
             emit(
-                Result.Error(
+                Result.Failure(
                     SolutionXException.RequestTimeOut(e.message ?: "")
                 )
             )
         } catch (e: Exception) {
             emit(
-                Result.Error(
+                Result.Failure(
                     SolutionXException.TooManyRequest(e.message ?: "")
                 )
             )
