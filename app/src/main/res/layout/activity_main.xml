@@ -7,13 +7,49 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+  <androidx.appcompat.widget.AppCompatEditText
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="10dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:id="@+id/countryCode"
+      android:hint="Country Code"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintStart_toStartOf="@id/countryCode"
+        app:layout_constraintTop_toBottomOf="@id/countryCode"
+        app:layout_constraintEnd_toEndOf="@id/countryCode"
+        android:id="@+id/phoneNumber"
+        android:hint="Phone Number"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintStart_toStartOf="@id/phoneNumber"
+        app:layout_constraintTop_toBottomOf="@id/phoneNumber"
+        app:layout_constraintEnd_toEndOf="@id/phoneNumber"
+        android:id="@+id/password"
+        android:inputType="numberPassword"
+        android:hint="Password"/>
+
+    <androidx.appcompat.widget.AppCompatButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/loginBtn"
+        app:layout_constraintStart_toStartOf="@id/password"
+        app:layout_constraintTop_toBottomOf="@id/password"
+        app:layout_constraintEnd_toEndOf="@id/password"
+        android:text="Login"
+        android:textAllCaps="false"
+        android:layout_marginTop="10dp"
+        />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

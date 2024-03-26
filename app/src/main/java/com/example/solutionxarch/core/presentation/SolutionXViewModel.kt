@@ -49,7 +49,7 @@ abstract class SolutionXViewModel<Action: ViewAction, Event: ViewEvent, State: V
     private val actionSharedFlow: SharedFlow<Action>
         get() = _viewAction
 
-    abstract fun onActionTrigger(action: ViewAction?)
+    abstract fun onActionTrigger(action: Action?)
 
     init {
        viewModelScope.launch {

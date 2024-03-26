@@ -10,17 +10,22 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.solutionxarch.databinding.ActivityMainBinding
+import com.example.solutionxarch.features.login.presentation.MainViewContract
 import com.example.solutionxarch.features.login.presentation.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private val viewModel by lazy { viewModels<MainViewModel>() }
+    private val viewModel by lazy { viewModels<MainViewModel>() }.value
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        setContentView(binding.main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -28,5 +33,15 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+        binding.loginBtn.setOnClickListener {
+
+        }
+
+
     }
+
 }
+
+
+
+

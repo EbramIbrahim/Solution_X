@@ -8,12 +8,17 @@ import com.example.solutionxarch.core.presentation.ViewState
 interface MainViewContract {
     sealed class MainAction : ViewAction {
         data object GetCountries : MainAction()
-        data class LoginWithEmail(val email: String, val password: String) : MainAction()
+        data class LoginWithPhone(
+            val phone: String,
+            val password: String,
+            val countryCode: String
+        ) : MainAction()
     }
 
     sealed class MainEvent : ViewEvent {
         data class ValidationError(val errors: Map<String, String>) : MainEvent()
-//        data class CountriesIndex(val countries: List<Country>) : MainEvent()
+
+        //        data class CountriesIndex(val countries: List<Country>) : MainEvent()
         data class LoginIsSuccessfully(val message: String) : MainEvent()
         // Navigate to Signup
     }

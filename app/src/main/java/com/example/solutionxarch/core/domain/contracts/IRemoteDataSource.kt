@@ -1,9 +1,8 @@
-package com.example.solutionxarch.features.login.domain.contracts
+package com.example.solutionxarch.core.domain.contracts
 
 import com.example.solutionxarch.features.login.data.models.UserDto
-import com.example.solutionxarch.features.login.data.models.meal_dto.MealsDto
 
-interface ILoginRemoteDataSource {
+interface IRemoteDataSource {
     suspend fun loginUserWithPhone(
         countryCode: String,
         number: String,

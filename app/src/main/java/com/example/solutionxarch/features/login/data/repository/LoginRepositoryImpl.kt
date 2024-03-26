@@ -1,16 +1,15 @@
 package com.example.solutionxarch.features.login.data.repository
 
-import com.example.solutionxarch.features.login.domain.contracts.ILoginLocalDataSource
+import com.example.solutionxarch.features.login.data.local.LoginLocalDataSource
 import com.example.solutionxarch.features.login.data.mapper.LoginMapper
-import com.example.solutionxarch.features.login.data.models.meal_dto.MealsDto
-import com.example.solutionxarch.features.login.domain.contracts.ILoginRemoteDataSource
+import com.example.solutionxarch.core.domain.contracts.IRemoteDataSource
 import com.example.solutionxarch.features.login.domain.repository.LoginRepository
 import com.example.solutionxarch.features.login.domain.models.User
 import javax.inject.Inject
 
 class LoginRepositoryImpl @Inject constructor(
-    private val api: ILoginRemoteDataSource,
-    private val localDatabase: ILoginLocalDataSource
+    private val api: IRemoteDataSource,
+    private val loginLocalDataSource: LoginLocalDataSource
 ): LoginRepository {
 
     override suspend fun loginUserWithPhone(
@@ -32,15 +31,11 @@ class LoginRepositoryImpl @Inject constructor(
         return LoginMapper.toDomain(user)
     }
 
-    override suspend fun getUserFromLocal(): User {
-        val user = localDatabase.getUser()
-        return LoginMapper.fromEntityToDomain(user)
+    override suspend fun saveToken(token: String) {
+        loginLocalDataSource.save("", token)
     }
 
     override suspend fun saveUser(user: User) {
-        val userEntity = LoginMapper.toEntity(user)
-        localDatabase.saveUser(userEntity)
+        loginLocalDataSource.save("", user)
     }
-
-
 }
