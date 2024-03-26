@@ -1,6 +1,8 @@
 package com.example.solutionxarch.core.common
 
 import androidx.annotation.StringRes
+import retrofit2.HttpException
+import retrofit2.Retrofit
 import kotlin.Exception
 import kotlin.reflect.KClass
 
@@ -43,4 +45,5 @@ sealed class SolutionXException(message: String?) : Exception(message) {
     data class Unknown(override val message: String?) : SolutionXException(message)
 
     fun isUnauthorized() = this == Client.Unauthorized
+
 }
