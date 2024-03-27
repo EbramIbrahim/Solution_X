@@ -12,12 +12,12 @@ import java.io.IOException
 class LoginWithSocialUC(
     private val loginRepository: LoginRepository
 ) {
-
-    operator fun invoke(): Flow<Result<User, SolutionXException>> = flow {
-
-        try {
-            val user = loginRepository.loginUserWithSocial()
-            emit(Result.Success(user))
-        } catch (e: Exception) {}
-    }
+//
+//    operator fun invoke(): Flow<Result<User, SolutionXException>> = flow {
+//
+//        try {
+//            val user = loginRepository.loginUserWithSocial()
+//            emit(Result.Success(user))
+//        } catch (e: Exception) {}
+//    }
 }

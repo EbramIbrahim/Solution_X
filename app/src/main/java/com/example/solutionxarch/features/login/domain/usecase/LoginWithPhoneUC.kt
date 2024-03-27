@@ -7,46 +7,30 @@ import com.example.solutionxarch.core.common.Result
 import com.example.solutionxarch.features.login.data.models.UserLoginData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class LoginWithPhoneUC(
+class LoginWithPhoneUC @Inject constructor(
     private val loginRepository: LoginRepository
 ) {
 
     operator fun invoke(
-        scope: CoroutineScope,
-        onResult: (Result<User, SolutionXException>) -> Unit,
         userLoginData: UserLoginData
-    ) {
-        scope.launch(Dispatchers.Main) {
-            onResult.invoke(Result.Loading())
-            try {
-                withContext(Dispatchers.IO) {
-                    val user = loginRepository.loginUserWithPhone(
-                        userLoginData.countryCode,
-                        userLoginData.number,
-                        userLoginData.password
-                    )
-                    onResult.invoke(Result.Success(user))
-                }
-                withContext(Dispatchers.Main) {
-                    onResult.invoke(Result.Loading(false))
-                }
-            } catch (e: Exception) {
-                withContext(Dispatchers.IO) {
-                    val failureResource = if (e is SolutionXException)
-                        e
-                    else
-                        SolutionXException.Unknown(message = "Unknown error in GetCurrenciesUC: $e")
+    ): Flow<Result<User, SolutionXException>> = flow {
+        emit(Result.Loading(true))
 
-                    onResult.invoke(Result.Failure(failureResource))
-                }
-
-                withContext(Dispatchers.Main) {
-                    onResult.invoke(Result.Loading(false))
-                }
-            }
+        try {
+            val user = loginRepository.loginUserWithPhone(userLoginData)
+            emit(Result.Success(user))
+        } catch (e: Exception) {
+            val failureResource = if (e is SolutionXException)
+                e
+            else
+                SolutionXException.Unknown(message = "Unknown error in GetCurrenciesUC: $e")
+            emit(Result.Failure(failureResource))
         }
     }
 }

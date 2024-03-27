@@ -2,6 +2,8 @@ package com.example.solutionxarch.features.login.data.remote
 
 import com.example.solutionxarch.features.login.data.models.UserDto
 import com.example.solutionxarch.core.domain.contracts.IRemoteDataSource
+import com.example.solutionxarch.features.login.data.models.UserLoginDto
+import retrofit2.http.Field
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -9,10 +11,10 @@ interface RemoteDataSource: IRemoteDataSource {
 
     @POST("api/login")
     override suspend fun loginUserWithPhone(
-        @Query("country_code") countryCode: String,
-        @Query("number") number: String,
-        @Query("password") password: String
-    ): UserDto
+        @Field("country_code") countryCode: String,
+        @Field("number") number: String,
+        @Field("password") password: String
+    ): UserLoginDto
 
     override suspend fun loginUserWithEmail(): UserDto {
         TODO("Not yet implemented")

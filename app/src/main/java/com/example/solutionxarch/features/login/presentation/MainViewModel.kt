@@ -56,20 +56,6 @@ class MainViewModel @Inject constructor(
     private fun loginUserWithPhone(
         userLoginData: UserLoginData
     ) {
-        loginWithPhoneUC(viewModelScope, userLoginData = userLoginData, onResult = { result ->
-            when (result) {
-                is Result.Failure -> TODO()
-                is Result.Loading -> TODO()
-                is Result.Success -> {
-                    onProcessIntent(MainAction.LoginWithPhone(
-                        userLoginData.countryCode,
-                        userLoginData.number,
-                        userLoginData.password
-                    )
-                    )
-                }
-            }
-        })
 
     }
 

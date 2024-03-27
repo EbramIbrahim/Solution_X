@@ -47,9 +47,9 @@ object SolutionXModule {
     @Singleton
     fun provideRepositoryWithRetrofit(
         loginRemoteDataSource: RemoteDataSource,
-        loginLocalDataSource: LoginLocalDataSource
-    ): LoginRepository{
-        return LoginRepositoryImpl(loginRemoteDataSource, loginLocalDataSource)
+        dataStore: DataStore<Preferences>
+        ): LoginRepository{
+        return LoginRepositoryImpl(loginRemoteDataSource, dataStore)
     }
 
     @Provides
@@ -73,6 +73,7 @@ object SolutionXModule {
             produceFile = { appContext.preferencesDataStoreFile(USER_PREFERENCES) }
         )
     }
+
 
 
 }

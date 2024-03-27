@@ -11,6 +11,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.solutionxarch.databinding.ActivityMainBinding
+import com.example.solutionxarch.features.login.data.models.UserLoginData
+import com.example.solutionxarch.features.login.presentation.LoginEvent
+import com.example.solutionxarch.features.login.presentation.LoginViewModel
 import com.example.solutionxarch.features.login.presentation.MainViewContract
 import com.example.solutionxarch.features.login.presentation.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +22,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private val viewModel by lazy { viewModels<MainViewModel>() }.value
+    private val viewModel by lazy { viewModels<LoginViewModel>() }.value
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,16 +37,17 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.loginBtn.setOnClickListener {
-
+            val countryCode = binding.countryCode.text.toString()
+            val phone = binding.phoneNumber.text.toString()
+            val password = binding.password.text.toString()
+            val userData = UserLoginData(countryCode, phone, password)
+            viewModel.onEvent(LoginEvent.UserLogin(userData))
         }
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.singleEvent.collect {
-                    when(it) {
-                        is MainViewContract.MainEvent.LoginIsSuccessfully -> TODO()
-                        is MainViewContract.MainEvent.ValidationError -> TODO()
-                    }
+                viewModel.loginState.collect {
+                    Toast.makeText(this@MainActivity, it.message, Toast.LENGTH_LONG).show()
                 }
             }
         }

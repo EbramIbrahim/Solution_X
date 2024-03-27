@@ -3,22 +3,20 @@ package com.example.solutionxarch.features.login.data.mapper
 import com.example.solutionxarch.core.data.mapper.Mapper
 import com.example.solutionxarch.features.login.data.models.UserEntity
 import com.example.solutionxarch.features.login.data.models.UserDto
+import com.example.solutionxarch.features.login.data.models.UserLoginDto
 import com.example.solutionxarch.features.login.domain.models.User
 
-object LoginMapper: Mapper<User, UserDto, UserEntity> {
+object LoginMapper: Mapper<User, UserLoginDto, UserEntity> {
 
-    override fun toDomain(data: UserDto): User {
+    override fun toDomain(data: UserLoginDto): User {
         return User(
-            username = data.username,
+            username = data.user.username,
             token = data.token
         )
     }
 
-    override fun toData(domain: User): UserDto {
-        return UserDto(
-            username = domain.username,
-            token = domain.token
-        )
+    override fun toData(domain: User): UserLoginDto {
+       TODO()
     }
 
     override fun toEntity(domain: User): UserEntity {
