@@ -6,13 +6,8 @@ import com.example.solutionxarch.features.login.domain.models.User
 import com.example.solutionxarch.core.common.Result
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.HttpException
-import java.io.IOException
 
 class LoginWithEmailUC(
     private val loginRepository: LoginRepository,

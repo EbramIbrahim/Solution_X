@@ -2,7 +2,6 @@ package com.example.solutionxarch.core.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -11,7 +10,6 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 abstract class SolutionXViewModel<Action: ViewAction, Event: ViewEvent, State: ViewState>(
@@ -49,7 +47,7 @@ abstract class SolutionXViewModel<Action: ViewAction, Event: ViewEvent, State: V
     private val actionSharedFlow: SharedFlow<Action>
         get() = _viewAction
 
-    abstract fun onActionTrigger(action: ViewAction?)
+    abstract fun onActionTrigger(action: Action?)
 
     init {
        viewModelScope.launch {

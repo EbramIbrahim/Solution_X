@@ -37,6 +37,17 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.singleEvent.collect {
+                    when(it) {
+                        is MainViewContract.MainEvent.LoginIsSuccessfully -> TODO()
+                        is MainViewContract.MainEvent.ValidationError -> TODO()
+                    }
+                }
+            }
+        }
+
 
     }
 
