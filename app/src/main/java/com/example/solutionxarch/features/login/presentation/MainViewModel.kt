@@ -82,6 +82,8 @@ class MainViewModel @Inject constructor(
                             )
                         }
                     }
+
+                    is Result.Loading -> TODO()
                 }
             }
         }
