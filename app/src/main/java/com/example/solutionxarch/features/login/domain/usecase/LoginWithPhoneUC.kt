@@ -25,12 +25,15 @@ class LoginWithPhoneUC @Inject constructor(
         try {
             val user = loginRepository.loginUserWithPhone(userLoginData)
             emit(Result.Success(user))
+            emit(Result.Loading(false))
         } catch (e: Exception) {
             val failureResource = if (e is SolutionXException)
                 e
             else
                 SolutionXException.Unknown(message = "Unknown error in GetCurrenciesUC: $e")
             emit(Result.Failure(failureResource))
+            emit(Result.Loading(false))
+
         }
     }
 }

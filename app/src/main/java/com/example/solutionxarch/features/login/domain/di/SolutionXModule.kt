@@ -16,6 +16,7 @@ import com.example.solutionxarch.core.domain.contracts.IRemoteDataSource
 import com.example.solutionxarch.features.login.data.local.LoginLocalDataSource
 import com.example.solutionxarch.features.login.domain.repository.LoginRepository
 import com.example.solutionxarch.features.login.domain.usecase.LoginWithPhoneUC
+import com.example.solutionxarch.features.login.domain.usecase.SaveTokenUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,6 +25,8 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -35,10 +38,13 @@ object SolutionXModule {
 
     @Provides
     @Singleton
-    fun provideRetrofitInstance(): IRemoteDataSource {
+    fun provideRetrofitInstance(
+        okHttpClient: OkHttpClient
+    ): IRemoteDataSource {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)
             .build()
             .create(RemoteDataSource::class.java)
     }
@@ -60,6 +66,23 @@ object SolutionXModule {
         return LoginWithPhoneUC(repositoryImpl)
     }
 
+    @Provides
+    @Singleton
+    fun provideSaveTokenUseCase(
+        repositoryImpl: LoginRepositoryImpl
+    ): SaveTokenUseCase {
+        return SaveTokenUseCase(repositoryImpl)
+    }
+
+    @Provides
+    @Singleton
+    fun provideInterceptor(): OkHttpClient {
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level =HttpLoggingInterceptor.Level.BODY
+        return OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .build()
+    }
 
     @Singleton
     @Provides
