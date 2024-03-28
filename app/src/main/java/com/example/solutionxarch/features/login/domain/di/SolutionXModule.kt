@@ -10,10 +10,10 @@ import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStoreFile
 import com.example.solutionxarch.core.common.Utils.BASE_URL
 import com.example.solutionxarch.core.common.Utils.USER_PREFERENCES
+import com.example.solutionxarch.features.login.data.local.LoginLocalDataSource
 import com.example.solutionxarch.features.login.data.remote.RemoteDataSource
 import com.example.solutionxarch.features.login.data.repository.LoginRepositoryImpl
-import com.example.solutionxarch.core.domain.contracts.IRemoteDataSource
-import com.example.solutionxarch.features.login.data.local.LoginLocalDataSource
+import com.example.solutionxarch.features.login.domain.contracts.IRemoteDataSource
 import com.example.solutionxarch.features.login.domain.repository.LoginRepository
 import com.example.solutionxarch.features.login.domain.usecase.LoginWithPhoneUC
 import com.example.solutionxarch.features.login.domain.usecase.SaveTokenUseCase
@@ -53,9 +53,9 @@ object SolutionXModule {
     @Singleton
     fun provideRepositoryWithRetrofit(
         loginRemoteDataSource: RemoteDataSource,
-        dataStore: DataStore<Preferences>
+        loginLocalDataSource: LoginLocalDataSource
         ): LoginRepository{
-        return LoginRepositoryImpl(loginRemoteDataSource, dataStore)
+        return LoginRepositoryImpl(loginRemoteDataSource, loginLocalDataSource)
     }
 
     @Provides

@@ -3,8 +3,9 @@ package com.example.solutionxarch.features.login.presentation
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.solutionxarch.core.android.helpers.logger.writer.LogcatWriter
 import com.example.solutionxarch.core.common.Result
-import com.example.solutionxarch.features.login.data.models.UserLoginData
+import com.example.solutionxarch.core.data.models.UserLoginData
 import com.example.solutionxarch.features.login.domain.usecase.LoginWithPhoneUC
 import com.example.solutionxarch.features.login.domain.usecase.SaveTokenUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -38,16 +39,15 @@ class LoginViewModel @Inject constructor(
                 when(result) {
                     is Result.Failure -> {
                         _loginState.update { it.copy(isLoading = false, error = result.error.message ?: "") }
-                        Log.e("state", result.error.toString())
+                        LogcatWriter("Tag", true).debug(message = result.error.toString(), clazz = String::class.java)
                     }
                     is Result.Loading -> {
                         _loginState.update { it.copy(isLoading = true) }
-                        Log.e("state", "loading")
 
                     }
                     is Result.Success -> {
-                        Log.e("state", "succes")
-                        _loginState.update { it.copy(user = result.data, message = "Login is done successfully") }
+                        LogcatWriter("Tag", true).debug(message = result.data.toString(), clazz = String::class.java)
+                        _loginState.update { it.copy(user = result.data, message = "Welcome ${result.data.username}") }
                         saveTokenUseCase(result.data.token)
                     }
                 }

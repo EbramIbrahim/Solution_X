@@ -1,9 +1,7 @@
 package com.example.solutionxarch.features.login.presentation
 
-import androidx.lifecycle.viewModelScope
-import com.example.solutionxarch.core.common.Result
+import com.example.solutionxarch.core.data.models.UserLoginData
 import com.example.solutionxarch.core.presentation.SolutionXViewModel
-import com.example.solutionxarch.features.login.data.models.UserLoginData
 import com.example.solutionxarch.features.login.domain.usecase.LoginWithPhoneUC
 import com.example.solutionxarch.features.login.presentation.MainViewContract.MainAction
 import com.example.solutionxarch.features.login.presentation.MainViewContract.MainEvent
@@ -46,7 +44,7 @@ class MainViewModel @Inject constructor(
             is MainAction.LoginWithPhone -> loginUserWithPhone(
                 UserLoginData(
                     countryCode = action.countryCode,
-                    number = action.phone,
+                    phone = action.phone,
                     password = action.password
                 )
             )

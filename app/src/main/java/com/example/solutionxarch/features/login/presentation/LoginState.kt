@@ -4,7 +4,7 @@ import com.example.solutionxarch.features.login.domain.models.User
 
 data class LoginState(
     val user: User? = null,
-    val message: String = "",
+    val message: String? = null,
     val isLoading: Boolean = false,
-    val error: String = ""
+    val error: String? = null
 )

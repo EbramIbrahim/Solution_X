@@ -1,21 +1,23 @@
 package com.example.solutionxarch.core.domain.contracts
 
-import okhttp3.*
+import retrofit2.http.HeaderMap
+import retrofit2.http.QueryMap
 
 class RemoteDataStoreMiddleWareProvider() {
 
-    fun <T, P> get(
+    @JvmOverloads
+    fun <RESPONSE, P> get(
         endpoint: String,
-        queries: Map<String, P>? = null,
-        headers: Map<String, P>? = null,
-    ): T {
+        @QueryMap queries: Map<String, P>? = null,
+        @HeaderMap headers: Map<String, P>? = null,
+    ): RESPONSE {
         TODO()
     }
 
-    fun <T, P> post(
+    fun <RESPONSE, P> post(
         endpoint: String,
         headers: Map<String, P>? = null,
-    ): T {
+    ): RESPONSE {
         TODO()
     }
 

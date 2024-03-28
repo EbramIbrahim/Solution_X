@@ -1,17 +1,16 @@
 package com.example.solutionxarch.features.login.data.mapper
 
 import com.example.solutionxarch.core.data.mapper.Mapper
-import com.example.solutionxarch.features.login.data.models.UserEntity
-import com.example.solutionxarch.features.login.data.models.UserDto
-import com.example.solutionxarch.features.login.data.models.UserLoginDto
+import com.example.solutionxarch.features.login.data.models.local.UserEntity
+import com.example.solutionxarch.features.login.data.models.remote.UserLoginDto
 import com.example.solutionxarch.features.login.domain.models.User
 
 object LoginMapper: Mapper<User, UserLoginDto, UserEntity> {
 
     override fun toDomain(data: UserLoginDto): User {
         return User(
-            username = data.user.username,
-            token = data.token
+            username = data.userDto?.username.orEmpty(),
+            token = data.token.orEmpty()
         )
     }
 

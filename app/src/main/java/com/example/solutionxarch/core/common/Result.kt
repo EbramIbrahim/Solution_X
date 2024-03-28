@@ -1,9 +1,9 @@
 package com.example.solutionxarch.core.common
 
 
-sealed interface Result<out D, out E: Exception> {
-    data class Success<out D, out E: Exception>(val data: D): Result<D, E>
-    data class Failure<out E: Exception>(val error: E): Result<Nothing, E>
+sealed class Result<out D> {
+    data class Success<out D>(val data: D): Result<D>()
+    data class Failure(val error:SolutionXException): Result<Nothing>()
 
-    data class Loading(val isLoading: Boolean = true): Result<Nothing, Nothing>
+    data class Loading(val isLoading: Boolean = true): Result<Nothing>()
 }
