@@ -4,7 +4,7 @@ import com.example.solutionxarch.features.login.data.models.remote.UserLoginDto
 
 interface IRemoteDataSource {
     suspend fun loginUserWithPhone(
-        queries: Map<String, String>
+        params: Map<String, String>
     ): UserLoginDto
 
 

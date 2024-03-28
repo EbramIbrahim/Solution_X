@@ -7,7 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.*
 import androidx.lifecycle.lifecycleScope
+
 import com.example.solutionxarch.core.data.models.UserLoginData
 import com.example.solutionxarch.databinding.ActivityMainBinding
 import com.example.solutionxarch.features.login.presentation.LoginEvent
