@@ -1,4 +1,4 @@
-package com.example.solutionxarch.features.login.data.models.remote
+package com.example.solutionxarch.features.login.data.models.dto
 
 import com.google.gson.annotations.SerializedName
 

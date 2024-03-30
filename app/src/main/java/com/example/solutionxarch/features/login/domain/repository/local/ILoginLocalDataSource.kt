@@ -1,8 +1,8 @@
-package com.example.solutionxarch.features.login.domain.contracts
+package com.example.solutionxarch.features.login.domain.repository.local
 
 import com.example.solutionxarch.features.login.domain.models.User
 
-interface ILocalDataSource {
+interface ILoginLocalDataSource {
 
     suspend fun saveToken(
         token: String,

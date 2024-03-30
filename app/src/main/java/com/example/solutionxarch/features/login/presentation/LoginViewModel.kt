@@ -1,11 +1,9 @@
 package com.example.solutionxarch.features.login.presentation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.solutionxarch.core.android.helpers.logger.writer.LogcatWriter
 import com.example.solutionxarch.core.common.Result
-import com.example.solutionxarch.core.data.models.UserLoginData
 import com.example.solutionxarch.features.login.domain.usecase.LoginWithPhoneUC
 import com.example.solutionxarch.features.login.domain.usecase.SaveTokenUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,7 +31,7 @@ class LoginViewModel @Inject constructor(
     }
 
 
-    private fun loginWithEmail(userLoginData: UserLoginData) {
+    private fun loginWithEmail(userLoginData: Map<String, String>) {
         viewModelScope.launch {
             loginWithPhoneUC(userLoginData).collect { result ->
                 when(result) {

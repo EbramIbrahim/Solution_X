@@ -1,11 +1,10 @@
 package com.example.solutionxarch.features.login.domain.repository
 
-import com.example.solutionxarch.core.data.models.UserLoginData
 import com.example.solutionxarch.features.login.domain.models.User
 
 interface LoginRepository {
     suspend fun loginUserWithPhone(
-        userLoginData: UserLoginData
+        userLoginData: Map<String, String>
     ): User
 //    suspend fun loginUserWithEmail(): User
 //    suspend fun loginUserWithSocial(): User

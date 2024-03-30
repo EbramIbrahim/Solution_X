@@ -1,4 +1,4 @@
-package com.example.solutionxarch.core.domain.contracts
+package com.example.solutionxarch.core.domain.repository.remote
 
 import retrofit2.http.HeaderMap
 import retrofit2.http.QueryMap

@@ -10,7 +10,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.*
 import androidx.lifecycle.lifecycleScope
 
-import com.example.solutionxarch.core.data.models.UserLoginData
+import com.example.solutionxarch.features.login.data.models.request.UserLoginData
 import com.example.solutionxarch.databinding.ActivityMainBinding
 import com.example.solutionxarch.features.login.presentation.LoginEvent
 import com.example.solutionxarch.features.login.presentation.LoginViewModel
@@ -19,11 +19,11 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private val viewModel by lazy { viewModels<LoginViewModel>() }.value
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        val viewModel: LoginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         enableEdgeToEdge()
         setContentView(binding.main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -38,7 +38,16 @@ class MainActivity : AppCompatActivity() {
             val phone = binding.phoneNumber.text.toString()
             val password = binding.password.text.toString()
             val userData = UserLoginData(countryCode, phone, password)
-            viewModel.onEvent(LoginEvent.UserLogin(userData))
+            viewModel.onEvent(
+                LoginEvent.UserLogin(
+                    mapOf(
+                        "phone[country_code]" to userData.countryCode,
+                        "phone[number]" to userData.phone,
+                        "password" to userData.password,
+
+                    )
+                )
+            )
         }
 
         lifecycleScope.launch {
@@ -53,6 +62,8 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
+
+
 
 
 

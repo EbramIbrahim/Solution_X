@@ -1,8 +1,8 @@
 package com.example.solutionxarch.features.login.data.mapper
 
 import com.example.solutionxarch.core.data.mapper.Mapper
-import com.example.solutionxarch.features.login.data.models.local.UserEntity
-import com.example.solutionxarch.features.login.data.models.remote.UserLoginDto
+import com.example.solutionxarch.features.login.data.models.entity.UserEntity
+import com.example.solutionxarch.features.login.data.models.dto.UserLoginDto
 import com.example.solutionxarch.features.login.domain.models.User
 
 object LoginMapper: Mapper<User, UserLoginDto, UserEntity> {

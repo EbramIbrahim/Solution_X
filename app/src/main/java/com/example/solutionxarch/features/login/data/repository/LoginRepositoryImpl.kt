@@ -1,29 +1,22 @@
 package com.example.solutionxarch.features.login.data.repository
 
-import com.example.solutionxarch.core.data.models.UserLoginData
 import com.example.solutionxarch.features.login.data.mapper.LoginMapper
-import com.example.solutionxarch.features.login.domain.contracts.ILocalDataSource
-import com.example.solutionxarch.features.login.domain.contracts.IRemoteDataSource
+import com.example.solutionxarch.features.login.domain.repository.local.ILoginLocalDataSource
+import com.example.solutionxarch.features.login.domain.repository.remote.ILoginRemoteDataSource
 import com.example.solutionxarch.features.login.domain.repository.LoginRepository
 import com.example.solutionxarch.features.login.domain.models.User
 import javax.inject.Inject
 
 class LoginRepositoryImpl @Inject constructor(
-    private val api: IRemoteDataSource,
-    private val localDB: ILocalDataSource
+    private val api: ILoginRemoteDataSource,
+    private val localDB: ILoginLocalDataSource
 ) : LoginRepository {
 
     override suspend fun loginUserWithPhone(
-        userLoginData: UserLoginData
+        userLoginData: Map<String, String>
     ): User {
         val user =
-            api.loginUserWithPhone(
-                mapOf(
-                    "phone[country_code]" to userLoginData.countryCode,
-                    "phone[number]" to userLoginData.phone,
-                    "password" to userLoginData.password,
-                )
-            )
+            api.loginUserWithPhone(userLoginData)
         return LoginMapper.toDomain(user)
     }
 

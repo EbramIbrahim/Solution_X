@@ -4,7 +4,6 @@ import com.example.solutionxarch.core.common.SolutionXException
 import com.example.solutionxarch.features.login.domain.repository.LoginRepository
 import com.example.solutionxarch.features.login.domain.models.User
 import com.example.solutionxarch.core.common.Result
-import com.example.solutionxarch.core.data.models.UserLoginData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -14,7 +13,7 @@ class LoginWithPhoneUC @Inject constructor(
 ) {
 
     operator fun invoke(
-        userLoginData: UserLoginData
+        userLoginData: Map<String, String>
     ): Flow<Result<User>> = flow {
         emit(Result.Loading(true))
 

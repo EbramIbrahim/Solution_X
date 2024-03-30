@@ -1,4 +1,4 @@
-package com.example.solutionxarch.core.domain.contracts
+package com.example.solutionxarch.core.domain.repository.local
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
