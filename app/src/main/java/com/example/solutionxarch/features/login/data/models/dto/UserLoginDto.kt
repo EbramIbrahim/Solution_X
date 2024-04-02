@@ -7,5 +7,6 @@ data class UserLoginDto(
     val message: String?,
     @SerializedName("token")
     val token: String?,
+    @SerializedName("user")
     val userDto: UserDto?
 )

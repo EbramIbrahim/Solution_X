@@ -9,6 +9,13 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStoreFile
 import com.example.solutionxarch.core.common.Utils
+import com.example.solutionxarch.core.data.repository.local.DataStoreStorageKeyValue
+import com.example.solutionxarch.core.data.repository.remote.ApiService
+import com.example.solutionxarch.core.data.repository.remote.RemoteDataSourceProvider
+import com.example.solutionxarch.core.domain.repository.local.IStorageKeyValue
+import com.example.solutionxarch.core.domain.repository.remote.IRemoteDataSourceProvider
+import com.example.solutionxarch.features.login.data.repository.remote.LoginRemoteDataSource
+import com.example.solutionxarch.features.login.domain.repository.remote.ILoginRemoteDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -53,16 +60,24 @@ object NetWorkModule {
 
     @Provides
     @Singleton
-    fun providePreferencesDataStore(@ApplicationContext appContext: Context): DataStore<Preferences> {
-        return PreferenceDataStoreFactory.create(
-            corruptionHandler = ReplaceFileCorruptionHandler(
-                produceNewData = { emptyPreferences() }
-            ),
-            migrations = listOf(SharedPreferencesMigration(appContext, Utils.USER_PREFERENCES)),
-            scope = CoroutineScope(Dispatchers.IO + SupervisorJob()),
-            produceFile = { appContext.preferencesDataStoreFile(Utils.USER_PREFERENCES) }
-        )
+    fun provideLoginRemoteApi(retrofit: Retrofit): ApiService {
+        return retrofit.create(ApiService::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provideLocalStorageProvider(@ApplicationContext context: Context): IStorageKeyValue {
+        return DataStoreStorageKeyValue(context)
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideRemoteDataSourceProvider(apiService: ApiService): IRemoteDataSourceProvider {
+        return RemoteDataSourceProvider(apiService)
+    }
+
+
 
 
 }

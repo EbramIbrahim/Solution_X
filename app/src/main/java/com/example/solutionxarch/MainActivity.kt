@@ -10,8 +10,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.*
 import androidx.lifecycle.lifecycleScope
 
-import com.example.solutionxarch.features.login.data.models.request.UserLoginData
+import com.example.solutionxarch.features.login.data.models.request.UserRequest
 import com.example.solutionxarch.databinding.ActivityMainBinding
+import com.example.solutionxarch.features.login.data.models.request.PhoneRequest
 import com.example.solutionxarch.features.login.presentation.LoginEvent
 import com.example.solutionxarch.features.login.presentation.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,23 +38,17 @@ class MainActivity : AppCompatActivity() {
             val countryCode = binding.countryCode.text.toString()
             val phone = binding.phoneNumber.text.toString()
             val password = binding.password.text.toString()
-            val userData = UserLoginData(countryCode, phone, password)
+            val phoneRequest = PhoneRequest(countryCode, phone)
+            val userRequest = UserRequest(phoneRequest, password)
             viewModel.onEvent(
-                LoginEvent.UserLogin(
-                    mapOf(
-                        "phone[country_code]" to userData.countryCode,
-                        "phone[number]" to userData.phone,
-                        "password" to userData.password,
-
-                    )
-                )
+                LoginEvent.UserLogin(userRequest)
             )
         }
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.loginState.collect {
-                    Toast.makeText(this@MainActivity, it.message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@MainActivity, it.message ?: "", Toast.LENGTH_LONG).show()
                 }
             }
         }

@@ -1,6 +1,8 @@
 package com.example.solutionxarch.features.login.data.repository
 
 import com.example.solutionxarch.features.login.data.mapper.LoginMapper
+import com.example.solutionxarch.features.login.data.models.entity.UserEntity
+import com.example.solutionxarch.features.login.data.models.request.UserRequest
 import com.example.solutionxarch.features.login.domain.repository.local.ILoginLocalDataSource
 import com.example.solutionxarch.features.login.domain.repository.remote.ILoginRemoteDataSource
 import com.example.solutionxarch.features.login.domain.repository.LoginRepository
@@ -13,10 +15,10 @@ class LoginRepositoryImpl @Inject constructor(
 ) : LoginRepository {
 
     override suspend fun loginUserWithPhone(
-        userLoginData: Map<String, String>
+        userRequest: UserRequest
     ): User {
         val user =
-            api.loginUserWithPhone(userLoginData)
+            api.loginUserWithPhone(userRequest)
         return LoginMapper.toDomain(user)
     }
 
@@ -25,14 +27,12 @@ class LoginRepositoryImpl @Inject constructor(
     }
 
     override suspend fun saveUser(user: User) {
-        localDB.saveUser(user)
+        localDB.saveUser(LoginMapper.toEntity(user))
     }
 
-    override suspend fun getUserToken(): String? {
-        return localDB.getToken()
-    }
-
-    override suspend fun getUser(): String? {
+    override suspend fun getUser(): UserEntity? {
         return localDB.getUser()
     }
+
+
 }

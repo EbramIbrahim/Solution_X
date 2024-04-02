@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.solutionxarch.core.android.helpers.logger.writer.LogcatWriter
 import com.example.solutionxarch.core.common.Result
+import com.example.solutionxarch.features.login.data.models.request.UserRequest
 import com.example.solutionxarch.features.login.domain.usecase.LoginWithPhoneUC
 import com.example.solutionxarch.features.login.domain.usecase.SaveTokenUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,15 +26,15 @@ class LoginViewModel @Inject constructor(
     fun onEvent(event: LoginEvent) {
         when(event) {
             is LoginEvent.UserLogin -> {
-                loginWithEmail(event.userLoginData)
+                loginWithEmail(event.userRequest)
             }
         }
     }
 
 
-    private fun loginWithEmail(userLoginData: Map<String, String>) {
+    private fun loginWithEmail(userRequest: UserRequest) {
         viewModelScope.launch {
-            loginWithPhoneUC(userLoginData).collect { result ->
+            loginWithPhoneUC(userRequest).collect { result ->
                 when(result) {
                     is Result.Failure -> {
                         _loginState.update { it.copy(isLoading = false, error = result.error.message ?: "") }

@@ -10,7 +10,9 @@ object LoginMapper: Mapper<User, UserLoginDto, UserEntity> {
     override fun toDomain(data: UserLoginDto): User {
         return User(
             username = data.userDto?.username.orEmpty(),
-            token = data.token.orEmpty()
+            token = data.token.orEmpty(),
+            email = data.userDto?.email.orEmpty(),
+            id = data.userDto?.id ?: -1
         )
     }
 
@@ -21,14 +23,18 @@ object LoginMapper: Mapper<User, UserLoginDto, UserEntity> {
     override fun toEntity(domain: User): UserEntity {
         return UserEntity(
             username = domain.username,
-            token = domain.token
+            token = domain.token,
+            email = domain.email,
+            id = domain.id
         )
     }
 
     override fun fromEntityToDomain(entity: UserEntity): User {
         return User(
             username = entity.username,
-            token = entity.token
+            token = entity.token,
+            email = entity.email,
+            id = entity.id
         )
     }
 }

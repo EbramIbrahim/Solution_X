@@ -2,6 +2,9 @@ package com.example.solutionxarch.features.login.domain.di
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import com.example.solutionxarch.core.data.repository.local.DataStoreStorageKeyValue
+import com.example.solutionxarch.core.domain.repository.local.IStorageKeyValue
+import com.example.solutionxarch.core.domain.repository.remote.IRemoteDataSourceProvider
 import com.example.solutionxarch.features.login.data.repository.LoginRepositoryImpl
 import com.example.solutionxarch.features.login.data.repository.remote.LoginRemoteDataSource
 import com.example.solutionxarch.features.login.domain.repository.LoginRepository
@@ -30,10 +33,11 @@ object LoginModule {
         return LoginRepositoryImpl(loginRemoteDataSource, loginLocalDataSource)
     }
 
+
     @Provides
     @Singleton
-    fun provideLoginRemoteApi(retrofit: Retrofit): ILoginRemoteDataSource {
-        return retrofit.create(LoginRemoteDataSource::class.java)
+    fun provideLoginRemoteApi(provider: IRemoteDataSourceProvider): ILoginRemoteDataSource {
+        return LoginRemoteDataSource(provider)
     }
 
     @Provides
@@ -55,9 +59,9 @@ object LoginModule {
     @Provides
     @Singleton
     fun provideLoginLocalDataSource(
-        dataStore: DataStore<Preferences>
+        provider: IStorageKeyValue
     ): ILoginLocalDataSource {
-        return LoginLocalDataSource(dataStore)
+        return LoginLocalDataSource(provider)
     }
 
 

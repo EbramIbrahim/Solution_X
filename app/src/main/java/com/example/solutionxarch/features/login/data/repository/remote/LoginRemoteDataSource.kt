@@ -1,17 +1,28 @@
 package com.example.solutionxarch.features.login.data.repository.remote
 
+import com.example.solutionxarch.core.domain.repository.remote.IRemoteDataSourceProvider
 import com.example.solutionxarch.features.login.data.models.dto.UserLoginDto
+import com.example.solutionxarch.features.login.data.models.request.UserRequest
 import com.example.solutionxarch.features.login.domain.repository.remote.ILoginRemoteDataSource
 import retrofit2.http.POST
 import retrofit2.http.QueryMap
+import javax.inject.Inject
 
-interface LoginRemoteDataSource: ILoginRemoteDataSource {
+internal class LoginRemoteDataSource @Inject constructor(
+    private val provider: IRemoteDataSourceProvider
+) : ILoginRemoteDataSource {
 
-    @POST("api/login")
-    override suspend fun loginUserWithPhone(
-        @QueryMap params: Map<String, String>
-    ): UserLoginDto
-
-
-
+    override suspend fun loginUserWithPhone(userRequest: UserRequest): UserLoginDto {
+        return provider.post(
+            responseWrappedModel = UserLoginDto::class.java,
+            endpoint = "login",
+            headers = hashMapOf("Accept-Language" to "ar"),
+            requestBody = userRequest
+        )
+    }
 }
+
+
+
+
+
