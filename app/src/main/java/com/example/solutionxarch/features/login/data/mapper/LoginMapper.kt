@@ -31,10 +31,10 @@ object LoginMapper: Mapper<User, UserLoginDto, UserEntity> {
 
     override fun fromEntityToDomain(entity: UserEntity): User {
         return User(
-            username = entity.username,
-            token = entity.token,
-            email = entity.email,
-            id = entity.id
+            username = entity.username.orEmpty(),
+            token = entity.token.orEmpty(),
+            email = entity.email.orEmpty(),
+            id = entity.id ?: -1
         )
     }
 }

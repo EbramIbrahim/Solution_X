@@ -10,11 +10,9 @@ interface LoginRepository {
     ): User
 
 
-    suspend fun saveToken(token: String)
-
     suspend fun saveUser(user: User)
 
-    suspend fun getUser(): UserEntity?
+    suspend fun getUser(): UserEntity
 
 
 

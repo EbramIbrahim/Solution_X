@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.loginState.collect {
-                    Toast.makeText(this@MainActivity, it.message ?: "", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@MainActivity, it.userEntity.toString() ?: "", Toast.LENGTH_LONG).show()
                 }
             }
         }

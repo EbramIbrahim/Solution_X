@@ -8,8 +8,8 @@ class SaveTokenUseCase @Inject constructor(
     private val repositoryImpl: LoginRepositoryImpl
 ) {
 
-    suspend operator fun invoke(token: String) {
-        repositoryImpl.saveToken(token)
-        Log.e("TAG", "token:$token was saved successfully")
-    }
+//    suspend operator fun invoke(token: String) {
+//        repositoryImpl.saveToken(token)
+//        Log.e("TAG", "token:$token was saved successfully")
+//    }
 }
