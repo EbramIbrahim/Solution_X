@@ -7,4 +7,6 @@ sealed interface LoginEvent {
 
     data class UserLogin(val userRequest: UserRequest): LoginEvent
 
+    data object GetUserEntity: LoginEvent
+
 }

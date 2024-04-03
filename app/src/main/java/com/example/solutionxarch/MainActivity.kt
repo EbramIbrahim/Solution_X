@@ -1,22 +1,17 @@
 package com.example.solutionxarch
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.*
-import androidx.lifecycle.lifecycleScope
-
 import com.example.solutionxarch.features.login.data.models.request.UserRequest
 import com.example.solutionxarch.databinding.ActivityMainBinding
 import com.example.solutionxarch.features.login.data.models.request.PhoneRequest
 import com.example.solutionxarch.features.login.presentation.LoginEvent
 import com.example.solutionxarch.features.login.presentation.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -45,12 +40,8 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.loginState.collect {
-                    Toast.makeText(this@MainActivity, it.userEntity.toString() ?: "", Toast.LENGTH_LONG).show()
-                }
-            }
+        binding.getBtn.setOnClickListener {
+            viewModel.onEvent(LoginEvent.GetUserEntity)
         }
 
 

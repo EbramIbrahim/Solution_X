@@ -7,7 +7,6 @@ import com.example.solutionxarch.core.common.Result
 import com.example.solutionxarch.features.login.data.models.request.UserRequest
 import com.example.solutionxarch.features.login.domain.usecase.GetUserEntityUC
 import com.example.solutionxarch.features.login.domain.usecase.LoginWithPhoneUC
-import com.example.solutionxarch.features.login.domain.usecase.SaveTokenUseCase
 import com.example.solutionxarch.features.login.domain.usecase.SaveUserEntityUC
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -34,6 +33,8 @@ class LoginViewModel @Inject constructor(
             is LoginEvent.UserLogin -> {
                 loginWithEmail(event.userRequest)
             }
+
+            LoginEvent.GetUserEntity -> getUserEntity()
         }
     }
 
@@ -41,6 +42,8 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch {
             val userEntity = getUserEntityUC()
             _loginState.update { it.copy(userEntity = userEntity) }
+            LogcatWriter("Tag", true).debug(message = userEntity.toString(), clazz = String::class.java)
+
         }
     }
 
@@ -60,9 +63,9 @@ class LoginViewModel @Inject constructor(
                     is Result.Success -> {
                         LogcatWriter("Tag", true).debug(message = result.data.toString(), clazz = String::class.java)
                         _loginState.update { it.copy(user = result.data, message = "Welcome ${result.data.username}") }
-                        saveUserEntityUC(result.data)
                         delay(1000L)
-                        getUserEntity()
+                        saveUserEntityUC(result.data)
+
                     }
                 }
             }
