@@ -16,9 +16,10 @@ class CryptoManager {
         load(null)
     }
 
-    private val encryptCipher get() = Cipher.getInstance(TRANSFORMATION).apply {
-        init(Cipher.ENCRYPT_MODE, getKey())
-    }
+    private val encryptCipher
+        get() = Cipher.getInstance(TRANSFORMATION).apply {
+            init(Cipher.ENCRYPT_MODE, getKey())
+        }
 
     private fun getDecryptCipherForIv(iv: ByteArray): Cipher {
         return Cipher.getInstance(TRANSFORMATION).apply {
@@ -75,8 +76,33 @@ class CryptoManager {
     companion object {
         private const val ALGORITHM = KeyProperties.KEY_ALGORITHM_AES
         private const val BLOCK_MODE = KeyProperties.BLOCK_MODE_CBC
-        private const val PADDING = KeyProperties.ENCRYPTION_PADDING_PKCS7
+        private const val PADDING = KeyProperties.ENCRYPTION_PADDING_RSA_PKCS1 // encryption padding scheme.
         private const val TRANSFORMATION = "$ALGORITHM/$BLOCK_MODE/$PADDING"
     }
 
+    // the alias name as a unique identifier assigned to
+    // the generated key within the Android Keystore
+
+
+    // setUserAuthenticationRequired(false) — This method is used to
+    // specify whether user authentication is required to use the key.
+
+
+    // setRandomizedEncryptionRequired: to produce different ciphertexts for the same plaintext every time.
+    /**
+     * But didn’t we already get a different ciphertext each time using a random IV? Well, that’s not the case with Android Keystore.
+     * What if someone uses some fixed value instead of randomly generating the IV
+     */
+
 }
+
+
+
+
+
+
+
+
+
+
+

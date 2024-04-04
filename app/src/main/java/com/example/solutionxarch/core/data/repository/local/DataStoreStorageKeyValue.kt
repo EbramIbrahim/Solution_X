@@ -2,6 +2,7 @@ package com.example.solutionxarch.core.data.repository.local
 
 import android.content.Context
 import androidx.datastore.core.DataStore
+import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.doublePreferencesKey
@@ -16,6 +17,8 @@ import com.example.solutionxarch.core.common.SolutionXException
 import com.example.solutionxarch.core.common.Utils
 import com.example.solutionxarch.core.domain.repository.local.IStorageKeyValue
 import com.example.solutionxarch.core.domain.repository.local.keys.IStorageKeys
+import com.example.solutionxarch.features.login.data.repository.local.CryptoManager
+import com.example.solutionxarch.features.login.data.repository.local.UserEntitySerializer
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 
@@ -23,8 +26,22 @@ class DataStoreStorageKeyValue(
     private val context: Context
 ) : IStorageKeyValue {
 
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = Utils.USER_PREFERENCES)
+    private val Context.dataStore: DataStore<Preferences> by
+    preferencesDataStore(name = Utils.USER_PREFERENCES)
 
+    // encrypted DataStore
+    private val Context.cipherDataStore by dataStore(
+        fileName = "user-entity",
+        serializer = UserEntitySerializer(CryptoManager())
+    )
+
+    override suspend fun <DATA> secureSave(model: DATA) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun <DATA> secureRead(model: DATA) {
+        TODO("Not yet implemented")
+    }
 
     override suspend fun <DATA> save(key: IStorageKeys, model: DATA) {
         context.dataStore.edit { settings ->
