@@ -17,13 +17,13 @@ import com.example.solutionxarch.core.common.SolutionXException
 import com.example.solutionxarch.core.common.Utils
 import com.example.solutionxarch.core.domain.repository.local.IStorageKeyValue
 import com.example.solutionxarch.core.domain.repository.local.keys.IStorageKeys
-import com.example.solutionxarch.features.login.data.repository.local.CryptoManager
-import com.example.solutionxarch.features.login.data.repository.local.UserEntitySerializer
+import com.example.solutionxarch.features.login.data.models.entity.UserEntity
+import com.example.solutionxarch.core.data.repository.local.EntitySerializer
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 
 class DataStoreStorageKeyValue(
-    private val context: Context
+    private val context: Context,
 ) : IStorageKeyValue {
 
     private val Context.dataStore: DataStore<Preferences> by
@@ -31,16 +31,18 @@ class DataStoreStorageKeyValue(
 
     // encrypted DataStore
     private val Context.cipherDataStore by dataStore(
-        fileName = "user-entity",
-        serializer = UserEntitySerializer(CryptoManager())
+        fileName = "user-entity.json",
+        serializer = EntitySerializer(CryptoManager(), UserEntity.serializer()) { UserEntity() }
     )
 
-    override suspend fun <DATA> secureSave(model: DATA) {
-        TODO("Not yet implemented")
+    override suspend fun secureSave(model: UserEntity) {
+        context.cipherDataStore.updateData {
+            model
+        }
     }
 
-    override suspend fun <DATA> secureRead(model: DATA) {
-        TODO("Not yet implemented")
+    override suspend fun read(): UserEntity {
+        return context.cipherDataStore.data.firstOrNull() ?: UserEntity()
     }
 
     override suspend fun <DATA> save(key: IStorageKeys, model: DATA) {

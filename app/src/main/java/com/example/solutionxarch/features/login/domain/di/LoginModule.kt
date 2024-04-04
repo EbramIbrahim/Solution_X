@@ -1,13 +1,8 @@
 package com.example.solutionxarch.features.login.domain.di
 
-import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import com.example.solutionxarch.core.data.repository.local.DataStoreStorageKeyValue
 import com.example.solutionxarch.core.domain.repository.local.IStorageKeyValue
 import com.example.solutionxarch.core.domain.repository.remote.IRemoteDataSourceProvider
 import com.example.solutionxarch.features.login.data.repository.LoginRepositoryImpl
-import com.example.solutionxarch.features.login.data.repository.local.CryptoLoginLocalDataSource
 import com.example.solutionxarch.features.login.data.repository.remote.LoginRemoteDataSource
 import com.example.solutionxarch.features.login.domain.repository.LoginRepository
 import com.example.solutionxarch.features.login.domain.repository.local.ILoginLocalDataSource
@@ -21,7 +16,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import retrofit2.Retrofit
 import javax.inject.Singleton
 import com.example.solutionxarch.features.login.data.repository.local.LoginLocalDataSource as LoginLocalDataSource
 
@@ -33,9 +27,9 @@ object LoginModule {
     @Singleton
     fun provideRepositoryWithRetrofit(
         loginRemoteDataSource: ILoginRemoteDataSource,
-        cryptoLoginLocalDataSource: CryptoLoginLocalDataSource
+        loginLocalDataSource: ILoginLocalDataSource
         ): LoginRepository{
-        return LoginRepositoryImpl(loginRemoteDataSource, cryptoLoginLocalDataSource)
+        return LoginRepositoryImpl(loginRemoteDataSource, loginLocalDataSource)
     }
 
 
@@ -45,11 +39,6 @@ object LoginModule {
         return LoginRemoteDataSource(provider)
     }
 
-    @Provides
-    @Singleton
-    fun provideCryptoLoginLocalDataSource(@ApplicationContext context: Context): CryptoLoginLocalDataSource {
-        return CryptoLoginLocalDataSource(context)
-    }
 
     @Provides
     @Singleton

@@ -1,7 +1,8 @@
-package com.example.solutionxarch.features.login.data.repository.local
+package com.example.solutionxarch.core.data.repository.local
 
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
+import com.example.solutionxarch.core.common.Utils.KEY_REFERENCE
 import java.io.InputStream
 import java.io.OutputStream
 import java.security.KeyStore
@@ -28,7 +29,7 @@ class CryptoManager {
     }
 
     private fun getKey(): SecretKey {
-        val existingKey = keyStore.getEntry("secret", null) as? KeyStore.SecretKeyEntry
+        val existingKey = keyStore.getEntry(KEY_REFERENCE, null) as? KeyStore.SecretKeyEntry
         return existingKey?.secretKey ?: createKey()
     }
 
@@ -36,7 +37,7 @@ class CryptoManager {
         return KeyGenerator.getInstance(ALGORITHM).apply {
             init(
                 KeyGenParameterSpec.Builder(
-                    "secret",
+                    KEY_REFERENCE,
                     KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
                 )
                     .setBlockModes(BLOCK_MODE)
@@ -76,23 +77,10 @@ class CryptoManager {
     companion object {
         private const val ALGORITHM = KeyProperties.KEY_ALGORITHM_AES
         private const val BLOCK_MODE = KeyProperties.BLOCK_MODE_CBC
-        private const val PADDING = KeyProperties.ENCRYPTION_PADDING_RSA_PKCS1 // encryption padding scheme.
+        private const val PADDING = KeyProperties.ENCRYPTION_PADDING_PKCS7 // encryption padding scheme.
         private const val TRANSFORMATION = "$ALGORITHM/$BLOCK_MODE/$PADDING"
     }
 
-    // the alias name as a unique identifier assigned to
-    // the generated key within the Android Keystore
-
-
-    // setUserAuthenticationRequired(false) — This method is used to
-    // specify whether user authentication is required to use the key.
-
-
-    // setRandomizedEncryptionRequired: to produce different ciphertexts for the same plaintext every time.
-    /**
-     * But didn’t we already get a different ciphertext each time using a random IV? Well, that’s not the case with Android Keystore.
-     * What if someone uses some fixed value instead of randomly generating the IV
-     */
 
 }
 

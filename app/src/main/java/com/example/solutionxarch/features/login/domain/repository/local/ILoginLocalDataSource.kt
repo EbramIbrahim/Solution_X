@@ -5,10 +5,8 @@ import com.example.solutionxarch.features.login.domain.models.User
 
 interface ILoginLocalDataSource {
 
-    suspend fun saveToken(token: String)
     suspend fun saveUser(user: UserEntity)
-
-    suspend fun getUser(): UserEntity?
+    suspend fun getUser(): UserEntity
 
 
 }

@@ -1,6 +1,7 @@
 package com.example.solutionxarch.core.domain.repository.local
 
 import com.example.solutionxarch.core.domain.repository.local.keys.IStorageKeys
+import com.example.solutionxarch.features.login.data.models.entity.UserEntity
 
 interface IStorageKeyValue {
 
@@ -8,7 +9,7 @@ interface IStorageKeyValue {
 
     suspend fun <DATA> read(key: IStorageKeys, model: DATA): DATA
 
-    suspend fun <DATA> secureSave(model: DATA)
+    suspend fun secureSave(model: UserEntity)
 
-    suspend fun <DATA> secureRead(model: DATA)
+    suspend fun read(): UserEntity
 }
