@@ -1,6 +1,6 @@
 package com.example.solutionxarch.features.login.domain.di
 
-import com.example.solutionxarch.core.domain.repository.local.ISecureStorageKeyValue
+import com.example.solutionxarch.core.domain.repository.local.cipher.ISecureStorageKeyValue
 import com.example.solutionxarch.core.domain.repository.remote.IRemoteDataSourceProvider
 import com.example.solutionxarch.features.login.data.models.entity.UserEntity
 import com.example.solutionxarch.features.login.data.repository.LoginRepositoryImpl

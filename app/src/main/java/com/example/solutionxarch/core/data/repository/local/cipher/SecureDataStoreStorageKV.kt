@@ -1,9 +1,9 @@
-package com.example.solutionxarch.core.data.repository.local
+package com.example.solutionxarch.core.data.repository.local.cipher
 
 import android.content.Context
 import androidx.datastore.core.Serializer
 import androidx.datastore.dataStore
-import com.example.solutionxarch.core.domain.repository.local.ISecureStorageKeyValue
+import com.example.solutionxarch.core.domain.repository.local.cipher.ISecureStorageKeyValue
 import kotlinx.coroutines.flow.firstOrNull
 
 class SecureDataStoreStorageKV<Model>(
@@ -12,7 +12,7 @@ class SecureDataStoreStorageKV<Model>(
 
     // encrypted DataStore
     private val Context.cipherDataStore by dataStore(
-        fileName = "user-entity.json",
+        fileName = "user-entity.preferences_pb ",
         serializer = serializer
     )
 

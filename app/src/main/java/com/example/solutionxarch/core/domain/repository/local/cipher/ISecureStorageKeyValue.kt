@@ -1,4 +1,4 @@
-package com.example.solutionxarch.core.domain.repository.local
+package com.example.solutionxarch.core.domain.repository.local.cipher
 
 interface ISecureStorageKeyValue<Model> {
 

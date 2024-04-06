@@ -1,4 +1,4 @@
-package com.example.solutionxarch.core.data.repository.local
+package com.example.solutionxarch.core.data.repository.local.cipher
 
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties

@@ -2,13 +2,13 @@ package com.example.solutionxarch.core.domain.di
 
 import android.content.Context
 import com.example.solutionxarch.core.common.Utils
-import com.example.solutionxarch.core.data.repository.local.CryptoManager
+import com.example.solutionxarch.core.data.repository.local.cipher.CryptoManager
 import com.example.solutionxarch.core.data.repository.local.DataStoreStorageKeyValue
-import com.example.solutionxarch.core.data.repository.local.EntitySerializer
-import com.example.solutionxarch.core.data.repository.local.SecureDataStoreStorageKV
+import com.example.solutionxarch.core.data.repository.local.cipher.EntitySerializer
+import com.example.solutionxarch.core.data.repository.local.cipher.SecureDataStoreStorageKV
 import com.example.solutionxarch.core.data.repository.remote.ApiService
 import com.example.solutionxarch.core.data.repository.remote.RemoteDataSourceProvider
-import com.example.solutionxarch.core.domain.repository.local.ISecureStorageKeyValue
+import com.example.solutionxarch.core.domain.repository.local.cipher.ISecureStorageKeyValue
 import com.example.solutionxarch.core.domain.repository.local.IStorageKeyValue
 import com.example.solutionxarch.core.domain.repository.remote.IRemoteDataSourceProvider
 import com.example.solutionxarch.features.login.data.models.entity.UserEntity
