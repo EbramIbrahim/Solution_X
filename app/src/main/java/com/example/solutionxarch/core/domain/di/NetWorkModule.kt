@@ -2,11 +2,16 @@ package com.example.solutionxarch.core.domain.di
 
 import android.content.Context
 import com.example.solutionxarch.core.common.Utils
+import com.example.solutionxarch.core.data.repository.local.CryptoManager
 import com.example.solutionxarch.core.data.repository.local.DataStoreStorageKeyValue
+import com.example.solutionxarch.core.data.repository.local.EntitySerializer
+import com.example.solutionxarch.core.data.repository.local.SecureDataStoreStorageKV
 import com.example.solutionxarch.core.data.repository.remote.ApiService
 import com.example.solutionxarch.core.data.repository.remote.RemoteDataSourceProvider
+import com.example.solutionxarch.core.domain.repository.local.ISecureStorageKeyValue
 import com.example.solutionxarch.core.domain.repository.local.IStorageKeyValue
 import com.example.solutionxarch.core.domain.repository.remote.IRemoteDataSourceProvider
+import com.example.solutionxarch.features.login.data.models.entity.UserEntity
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -54,8 +59,20 @@ object NetWorkModule {
 
     @Singleton
     @Provides
-    fun provideLocalStorageProvider(@ApplicationContext context: Context): IStorageKeyValue {
+    fun provideLocalStorageProvider(
+        @ApplicationContext context: Context
+    ): IStorageKeyValue {
         return DataStoreStorageKeyValue(context)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSecureLocalStorage(
+        @ApplicationContext context: Context
+    ): ISecureStorageKeyValue<UserEntity> {
+        return SecureDataStoreStorageKV(
+            context,
+            EntitySerializer(CryptoManager(), UserEntity.serializer()) { UserEntity() })
     }
 
 
@@ -64,8 +81,6 @@ object NetWorkModule {
     fun provideRemoteDataSourceProvider(apiService: ApiService): IRemoteDataSourceProvider {
         return RemoteDataSourceProvider(apiService)
     }
-
-
 
 
 }

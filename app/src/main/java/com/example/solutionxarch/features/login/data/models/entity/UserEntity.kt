@@ -9,3 +9,7 @@ data class UserEntity(
     val email: String? = null,
     val id: Int? = null
 )
+
+
+
+

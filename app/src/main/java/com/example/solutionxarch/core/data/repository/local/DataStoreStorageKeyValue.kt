@@ -2,6 +2,7 @@ package com.example.solutionxarch.core.data.repository.local
 
 import android.content.Context
 import androidx.datastore.core.DataStore
+import androidx.datastore.core.Serializer
 import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -17,8 +18,6 @@ import com.example.solutionxarch.core.common.SolutionXException
 import com.example.solutionxarch.core.common.Utils
 import com.example.solutionxarch.core.domain.repository.local.IStorageKeyValue
 import com.example.solutionxarch.core.domain.repository.local.keys.IStorageKeys
-import com.example.solutionxarch.features.login.data.models.entity.UserEntity
-import com.example.solutionxarch.core.data.repository.local.EntitySerializer
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 
@@ -29,20 +28,13 @@ class DataStoreStorageKeyValue(
     private val Context.dataStore: DataStore<Preferences> by
     preferencesDataStore(name = Utils.USER_PREFERENCES)
 
-    // encrypted DataStore
-    private val Context.cipherDataStore by dataStore(
-        fileName = "user-entity.json",
-        serializer = EntitySerializer(CryptoManager(), UserEntity.serializer()) { UserEntity() }
-    )
 
-    override suspend fun secureSave(model: UserEntity) {
-        context.cipherDataStore.updateData {
-            model
-        }
+    override suspend fun <DATA> secureSave(model: DATA) {
+        TODO("Not yet implemented")
     }
 
-    override suspend fun read(): UserEntity {
-        return context.cipherDataStore.data.firstOrNull() ?: UserEntity()
+    override suspend fun <DATA> read(): DATA {
+        TODO("Not yet implemented")
     }
 
     override suspend fun <DATA> save(key: IStorageKeys, model: DATA) {

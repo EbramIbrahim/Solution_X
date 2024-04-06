@@ -1,7 +1,8 @@
 package com.example.solutionxarch.features.login.domain.di
 
-import com.example.solutionxarch.core.domain.repository.local.IStorageKeyValue
+import com.example.solutionxarch.core.domain.repository.local.ISecureStorageKeyValue
 import com.example.solutionxarch.core.domain.repository.remote.IRemoteDataSourceProvider
+import com.example.solutionxarch.features.login.data.models.entity.UserEntity
 import com.example.solutionxarch.features.login.data.repository.LoginRepositoryImpl
 import com.example.solutionxarch.features.login.data.repository.remote.LoginRemoteDataSource
 import com.example.solutionxarch.features.login.domain.repository.LoginRepository
@@ -14,7 +15,6 @@ import com.example.solutionxarch.features.login.domain.usecase.SaveUserEntityUC
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 import com.example.solutionxarch.features.login.data.repository.local.LoginLocalDataSource as LoginLocalDataSource
@@ -58,8 +58,8 @@ object LoginModule {
 
     @Provides
     @Singleton
-    fun provideLoginLocalDataSource(
-        provider: IStorageKeyValue
+    fun provideLoginLocalDataSource (
+        provider: ISecureStorageKeyValue<UserEntity>
     ): ILoginLocalDataSource {
         return LoginLocalDataSource(provider)
     }
