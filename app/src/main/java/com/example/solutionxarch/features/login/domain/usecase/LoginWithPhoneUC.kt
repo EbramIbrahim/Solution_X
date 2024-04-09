@@ -5,8 +5,10 @@ import com.example.solutionxarch.features.login.domain.repository.LoginRepositor
 import com.example.solutionxarch.features.login.domain.models.User
 import com.example.solutionxarch.core.common.Result
 import com.example.solutionxarch.features.login.data.models.request.UserRequest
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class LoginWithPhoneUC @Inject constructor(
@@ -14,22 +16,36 @@ class LoginWithPhoneUC @Inject constructor(
 ) {
 
     operator fun invoke(
-        userRequest: UserRequest
-    ): Flow<Result<User>> = flow {
-        emit(Result.Loading(true))
-
-        try {
-            val user = loginRepository.loginUserWithPhone(userRequest)
-            emit(Result.Success(user))
-            emit(Result.Loading(false))
-        } catch (e: Exception) {
-            val failureResource = if (e is SolutionXException)
-                e
-            else
-                SolutionXException.Unknown(message = "Unknown error in GetPhoneUC: $e")
-            emit(Result.Failure(failureResource))
-            emit(Result.Loading(false))
-
+        scope: CoroutineScope,
+        onResult: (Result<User>) -> Unit,
+        needLoading: Boolean = true,
+        request: UserRequest
+    ) {
+        scope.launch(Dispatchers.Main) {
+            if (needLoading) {
+                onResult.invoke(Result.Loading(true))
+            }
+            withContext(Dispatchers.IO) {
+                try {
+                    val result = loginRepository.loginUserWithPhone(request)
+                    onResult.invoke(Result.Success(result))
+                    loginRepository.saveUser(result)
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
+                        val failureResource = if (e is SolutionXException)
+                            e
+                        else
+                            SolutionXException.Unknown(message = "Unknown error in GetPhoneUC: $e")
+                        onResult.invoke(Result.Failure(failureResource))
+                    }
+                }
+            }
+            withContext(Dispatchers.Main) {
+                if (needLoading) {
+                    onResult.invoke(Result.Loading(false))
+                }
+            }
         }
     }
 }
+

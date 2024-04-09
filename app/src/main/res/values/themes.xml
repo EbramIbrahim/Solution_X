@@ -6,4 +6,21 @@
     </style>
 
     <style name="Theme.SolutionXArch" parent="Base.Theme.SolutionXArch" />
+
+    ///---- Font
+    <style name="Font" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/app_font_regular</item>
+    </style>
+
+    <style name="Font.medium" parent="Font">
+        <item name="android:fontFamily">@font/app_font_medium</item>
+    </style>
+
+    <style name="Font.bold" parent="Font">
+        <item name="android:fontFamily">@font/app_font_bold</item>
+    </style>
+                                                   Font ----\\
+
+
+
 </resources>

@@ -4,8 +4,6 @@ import com.example.solutionxarch.core.domain.repository.remote.IRemoteDataSource
 import com.example.solutionxarch.features.login.data.models.dto.UserLoginDto
 import com.example.solutionxarch.features.login.data.models.request.UserRequest
 import com.example.solutionxarch.features.login.domain.repository.remote.ILoginRemoteDataSource
-import retrofit2.http.POST
-import retrofit2.http.QueryMap
 import javax.inject.Inject
 
 internal class LoginRemoteDataSource @Inject constructor(
@@ -20,6 +18,7 @@ internal class LoginRemoteDataSource @Inject constructor(
             requestBody = userRequest
         )
     }
+
 }
 
 

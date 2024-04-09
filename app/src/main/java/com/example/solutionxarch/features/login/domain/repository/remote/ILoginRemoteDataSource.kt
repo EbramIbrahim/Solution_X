@@ -6,5 +6,4 @@ import com.example.solutionxarch.features.login.data.models.request.UserRequest
 interface ILoginRemoteDataSource {
     suspend fun loginUserWithPhone(userRequest: UserRequest): UserLoginDto
 
-
 }

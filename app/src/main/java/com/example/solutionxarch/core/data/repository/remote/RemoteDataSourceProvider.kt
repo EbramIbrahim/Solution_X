@@ -31,6 +31,12 @@ class RemoteDataSourceProvider(
         queries: Map<String, Any>?,
         headers: Map<String, Any>?
     ): ResponseBody {
-        TODO("Not yet implemented")
+        val response = apiService.get(
+            endPoint = endpoint,
+            headers = headers ?: hashMapOf(),
+            queries = queries ?: hashMapOf()
+
+        )
+        return Gson().fromJson(response.string(), responseWrappedModel)
     }
 }
