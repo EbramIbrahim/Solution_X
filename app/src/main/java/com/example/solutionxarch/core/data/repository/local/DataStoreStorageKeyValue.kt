@@ -2,8 +2,6 @@ package com.example.solutionxarch.core.data.repository.local
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.datastore.core.Serializer
-import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.doublePreferencesKey
@@ -29,13 +27,6 @@ class DataStoreStorageKeyValue(
     preferencesDataStore(name = Utils.USER_PREFERENCES)
 
 
-    override suspend fun <DATA> secureSave(model: DATA) {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun <DATA> read(): DATA {
-        TODO("Not yet implemented")
-    }
 
     override suspend fun <DATA> save(key: IStorageKeys, model: DATA) {
         context.dataStore.edit { settings ->
