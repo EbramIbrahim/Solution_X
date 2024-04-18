@@ -27,73 +27,78 @@ class FakeLocalDataSource(val context: Context)
 
 
     override suspend fun <DATA> save(key: IStorageKeys, model: DATA) {
-        context.dataStore.edit { settings ->
-            when (model) {
-                is String -> {
-                    settings[stringPreferencesKey(key.key)] = model
-                }
+        if (model.toString().isNotEmpty()) {
+            context.dataStore.edit { settings ->
+                when (model) {
+                    is String -> {
+                        settings[stringPreferencesKey(key.key)] = model
+                    }
 
-                is Int -> {
-                    settings[intPreferencesKey(key.key)] = model
-                }
+                    is Int -> {
+                        settings[intPreferencesKey(key.key)] = model
+                    }
 
-                is Double -> {
-                    settings[doublePreferencesKey(key.key)] = model
-                }
+                    is Double -> {
+                        settings[doublePreferencesKey(key.key)] = model
+                    }
 
-                is Boolean -> {
-                    settings[booleanPreferencesKey(key.key)] = model
-                }
+                    is Boolean -> {
+                        settings[booleanPreferencesKey(key.key)] = model
+                    }
 
-                is Long -> {
-                    settings[longPreferencesKey(key.key)] = model
-                }
+                    is Long -> {
+                        settings[longPreferencesKey(key.key)] = model
+                    }
 
-                is Float -> {
-                    settings[floatPreferencesKey(key.key)] = model
+                    is Float -> {
+                        settings[floatPreferencesKey(key.key)] = model
+                    }
                 }
-
             }
         }
+
     }
 
     @Suppress("UNCHECKED_CAST")
     override suspend fun <DATA> read(key: IStorageKeys, model: DATA): DATA {
-        return when (model) {
-            is String -> {
-                (context.dataStore.data.map { it[stringPreferencesKey(key.key)] }.firstOrNull()
-                    ?: model) as DATA
-            }
+        if (model.toString().isNotEmpty()) {
+            return when (model) {
+                is String -> {
+                    (context.dataStore.data.map { it[stringPreferencesKey(key.key)] }.firstOrNull()
+                        ?: model) as DATA
+                }
 
-            is Int -> {
-                (context.dataStore.data.map { it[intPreferencesKey(key.key)] }.firstOrNull()
-                    ?: model) as DATA
-            }
+                is Int -> {
+                    (context.dataStore.data.map { it[intPreferencesKey(key.key)] }.firstOrNull()
+                        ?: model) as DATA
+                }
 
-            is Boolean -> {
-                (context.dataStore.data.map { it[booleanPreferencesKey(key.key)] }.firstOrNull()
-                    ?: model) as DATA
-            }
+                is Boolean -> {
+                    (context.dataStore.data.map { it[booleanPreferencesKey(key.key)] }.firstOrNull()
+                        ?: model) as DATA
+                }
 
-            is Double -> {
-                (context.dataStore.data.map { it[doublePreferencesKey(key.key)] }.firstOrNull()
-                    ?: model) as DATA
-            }
+                is Double -> {
+                    (context.dataStore.data.map { it[doublePreferencesKey(key.key)] }.firstOrNull()
+                        ?: model) as DATA
+                }
 
-            is Long -> {
-                (context.dataStore.data.map { it[longPreferencesKey(key.key)] }.firstOrNull()
-                    ?: model) as DATA
-            }
+                is Long -> {
+                    (context.dataStore.data.map { it[longPreferencesKey(key.key)] }.firstOrNull()
+                        ?: model) as DATA
+                }
 
-            is Float -> {
-                (context.dataStore.data.map { it[floatPreferencesKey(key.key)] }.firstOrNull()
-                    ?: model) as DATA
-            }
+                is Float -> {
+                    (context.dataStore.data.map { it[floatPreferencesKey(key.key)] }.firstOrNull()
+                        ?: model) as DATA
+                }
 
-            else -> {
-                throw SolutionXException.Local.IOOperation(R.string.un_supported_type)
+                else -> {
+                    throw SolutionXException.Local.IOOperation(R.string.un_supported_type)
+                }
             }
         }
+        return model
     }
 
 }

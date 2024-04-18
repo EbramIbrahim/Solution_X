@@ -31,8 +31,15 @@ class LoginLocalDataSourceTest {
     @Test
     fun dataStore_saveAndGetDataFromLocal() = runTest {
         fakeLocalDataSource.save(FakeStorageKeys.TEST_KEY, testValue)
-        val result = fakeLocalDataSource.read(FakeStorageKeys.TEST_KEY, "")
+        val result = fakeLocalDataSource.read(FakeStorageKeys.TEST_KEY, testValue)
         assertEquals(testValue, result)
+    }
+
+    @Test
+    fun dataStore_saveAndGetEmptyFromLocal() = runTest {
+        fakeLocalDataSource.save(FakeStorageKeys.TEST_KEY, "")
+        val result = fakeLocalDataSource.read(FakeStorageKeys.TEST_KEY, "")
+        assertEquals(true, result.isEmpty())
     }
 
 

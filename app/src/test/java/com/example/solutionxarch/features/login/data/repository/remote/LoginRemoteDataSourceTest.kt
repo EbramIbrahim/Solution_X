@@ -24,6 +24,10 @@ class LoginRemoteDataSourceTest {
     private val emptyRequest = UserRequest(
         PhoneRequest("", ""), password = ""
     )
+
+    private val invalidPhoneNumberRequest = UserRequest(
+        PhoneRequest("0020", "012256"), password = "123456789"
+    )
     @Before
     fun setUp() {
         apiService = Retrofit.Builder()
@@ -50,13 +54,12 @@ class LoginRemoteDataSourceTest {
     }
 
     @Test
-    fun retrofit_postResponseStatusCode() = runTest {
+    fun retrofit_postResponseInvalidPhoneNumber() = runTest {
         try {
-            loginRemoteDataSource.loginUserWithPhone(emptyRequest)
+            loginRemoteDataSource.loginUserWithPhone(invalidPhoneNumberRequest)
         } catch (e: HttpException) {
-            assertEquals(401, e.code())
+            assertEquals(500, e.code())
         }
-
     }
 
 }
