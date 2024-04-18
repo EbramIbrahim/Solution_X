@@ -50,16 +50,15 @@ class LoginRemoteDataSourceTest {
     @Test()
     fun retrofit_postEmptyRequest() = runTest {
         val response = loginRemoteDataSource.loginUserWithPhone(emptyRequest)
-        assertEquals(true, response.token.isNullOrEmpty())
+        assertEquals(true, response.token?.isEmpty())
     }
 
     @Test
     fun retrofit_postResponseInvalidPhoneNumber() = runTest {
-        try {
-            loginRemoteDataSource.loginUserWithPhone(invalidPhoneNumberRequest)
-        } catch (e: HttpException) {
-            assertEquals(500, e.code())
-        }
+            val result = loginRemoteDataSource.loginUserWithPhone(invalidPhoneNumberRequest)
+
+            assertEquals(true, result.token?.isNotEmpty())
+
     }
 
 }
