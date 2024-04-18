@@ -15,7 +15,7 @@ class RemoteDataSourceProvider(
         queries: Map<String, Any>?,
         headers: Map<String, Any>?,
         requestBody: RequestBody?
-    ): ResponseBody {
+    ): ResponseBody? {
         val response = apiService.post(
             endPoint = endpoint,
             headers = headers ?: hashMapOf(),

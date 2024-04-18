@@ -16,7 +16,7 @@ internal class LoginRemoteDataSource @Inject constructor(
             endpoint = "login",
             headers = hashMapOf("Accept-Language" to "ar"),
             requestBody = userRequest
-        )
+        ) ?: UserLoginDto()
     }
 
 }

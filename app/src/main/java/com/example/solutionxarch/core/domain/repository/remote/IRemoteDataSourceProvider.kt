@@ -11,7 +11,7 @@ interface IRemoteDataSourceProvider {
         queries: Map<String, Any>? = null,
         headers: Map<String, Any>? = null,
         requestBody: RequestBody? = null
-    ): ResponseBody
+    ): ResponseBody?
 
     suspend fun <ResponseBody> get(
         responseWrappedModel: Type,
