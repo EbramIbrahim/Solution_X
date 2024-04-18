@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class UserLoginDto(
     @SerializedName("message")
-    val message: String?,
+    val message: String? = null,
     @SerializedName("token")
-    val token: String?,
+    val token: String? = null,
     @SerializedName("user")
-    val userDto: UserDto?
+    val userDto: UserDto? = null
 )

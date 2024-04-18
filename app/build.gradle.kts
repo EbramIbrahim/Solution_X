@@ -18,7 +18,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.example.solutionxarch.HiltTestRunner"
     }
 
     buildTypes {
@@ -49,9 +49,28 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.junit.ktx)
+    implementation(libs.androidx.runner)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    //TestImpl
+    testImplementation ("org.mockito:mockito-core:2.19.0")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1-Beta")
+    testImplementation("androidx.test:core:1.5.0")
+    testImplementation ("org.robolectric:robolectric:4.12.1")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
+    testImplementation("com.google.dagger:hilt-android-testing:2.48")
+    kaptTest("com.google.dagger:hilt-android-compiler:2.28-alpha")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1-Beta")
+
+    //AndroidTestImpl
+    androidTestImplementation ("org.mockito:mockito-core:2.19.0")
+    androidTestImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1-Beta")
+    androidTestImplementation("androidx.test:core:1.5.0")
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.48")
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.28-alpha")
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
 

@@ -1,5 +1,6 @@
 package com.example.solutionxarch.features.login.domain.di
 
+import com.example.solutionxarch.core.domain.repository.local.IStorageKeyValue
 import com.example.solutionxarch.core.domain.repository.local.cipher.ISecureStorageKeyValue
 import com.example.solutionxarch.core.domain.repository.remote.IRemoteDataSourceProvider
 import com.example.solutionxarch.features.login.data.models.entity.UserEntity
@@ -59,9 +60,10 @@ object LoginModule {
     @Provides
     @Singleton
     fun provideLoginLocalDataSource (
-        provider: ISecureStorageKeyValue<UserEntity>
-    ): ILoginLocalDataSource {
-        return LoginLocalDataSource(provider)
+        secureProvider: ISecureStorageKeyValue<UserEntity>,
+        provider: IStorageKeyValue
+        ): ILoginLocalDataSource {
+        return LoginLocalDataSource(secureProvider, provider)
     }
 
     @Provides
