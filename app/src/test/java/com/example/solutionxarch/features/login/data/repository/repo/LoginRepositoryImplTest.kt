@@ -32,13 +32,13 @@ class LoginRepositoryImplTest {
 
 
     @Test
-    fun getUserData_requestUserDataFromRemote() = runTest {
+    fun testRepository_getUserData_requestUserDataFromRemote() = runTest {
         val user = loginRepositoryImpl.loginUserWithPhone(userRequest)
         assertEquals(userLoginDto.token, user.token)
     }
 
     @Test
-    fun getUserData_requestUserDataFromLocal() = runTest {
+    fun testRepository_getUserData_requestUserDataFromLocal() = runTest {
         loginRepositoryImpl.saveUser(user)
         val result = loginRepositoryImpl.getUser()
         assertEquals(result.token, user.token)

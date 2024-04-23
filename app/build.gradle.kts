@@ -56,7 +56,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     //TestImpl
-    testImplementation ("org.mockito:mockito-core:2.19.0")
+    testImplementation ("io.mockk:mockk:1.12.4")
     testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1-Beta")
     testImplementation("androidx.test:core:1.5.0")
     testImplementation ("org.robolectric:robolectric:4.12.1")
@@ -86,12 +86,18 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
 
     
     //Dagger - Hilt
     implementation ("com.google.dagger:hilt-android:2.48")
     kapt ("com.google.dagger:hilt-android-compiler:2.48")
     kapt ("androidx.hilt:hilt-compiler:1.2.0")
+    implementation ("androidx.hilt:hilt-work:1.0.0")
+    implementation ("androidx.startup:startup-runtime:1.1.1")
+
+    //WorkManager
+    implementation ("androidx.work:work-runtime-ktx:2.9.0")
 
     //DataStore
     implementation("androidx.datastore:datastore-preferences:1.0.0")

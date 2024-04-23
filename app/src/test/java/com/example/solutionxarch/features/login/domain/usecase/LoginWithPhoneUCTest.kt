@@ -18,7 +18,6 @@ import com.example.solutionxarch.features.login.data.repository.LoginRepositoryI
 import com.example.solutionxarch.features.login.data.repository.local.LoginLocalDataSource
 import com.example.solutionxarch.features.login.data.repository.remote.LoginRemoteDataSource
 import kotlinx.coroutines.test.TestScope
-import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test

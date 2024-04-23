@@ -8,7 +8,6 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
-import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -42,19 +41,19 @@ class LoginRemoteDataSourceTest {
 
 
     @Test
-    fun retrofit_postUserRequest() = runTest {
+    fun testRetrofit_postUserRequest() = runTest {
         val response = loginRemoteDataSource.loginUserWithPhone(userRequest)
         assertEquals(true, response.userDto?.email?.isNotEmpty())
     }
 
     @Test()
-    fun retrofit_postEmptyRequest() = runTest {
+    fun testRetrofit_postEmptyRequest() = runTest {
         val response = loginRemoteDataSource.loginUserWithPhone(emptyRequest)
         assertEquals(true, response.token?.isEmpty())
     }
 
     @Test
-    fun retrofit_postResponseInvalidPhoneNumber() = runTest {
+    fun testRetrofit_postResponseInvalidPhoneNumber() = runTest {
             val result = loginRemoteDataSource.loginUserWithPhone(invalidPhoneNumberRequest)
 
             assertEquals(true, result.token?.isNotEmpty())

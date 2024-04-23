@@ -4,63 +4,80 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
     tools:context=".MainActivity">
 
-  <androidx.appcompat.widget.AppCompatEditText
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_margin="10dp"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      android:id="@+id/countryCode"
-      android:hint="Country Code"/>
+<!--  <androidx.appcompat.widget.AppCompatEditText-->
+<!--      android:layout_width="match_parent"-->
+<!--      android:layout_height="wrap_content"-->
+<!--      android:layout_margin="10dp"-->
+<!--      app:layout_constraintStart_toStartOf="parent"-->
+<!--      app:layout_constraintTop_toTopOf="parent"-->
+<!--      app:layout_constraintEnd_toEndOf="parent"-->
+<!--      android:id="@+id/countryCode"-->
+<!--      android:hint="Country Code"/>-->
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        app:layout_constraintStart_toStartOf="@id/countryCode"
-        app:layout_constraintTop_toBottomOf="@id/countryCode"
-        app:layout_constraintEnd_toEndOf="@id/countryCode"
-        android:id="@+id/phoneNumber"
-        android:hint="Phone Number"/>
+<!--    <androidx.appcompat.widget.AppCompatEditText-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="10dp"-->
+<!--        app:layout_constraintStart_toStartOf="@id/countryCode"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/countryCode"-->
+<!--        app:layout_constraintEnd_toEndOf="@id/countryCode"-->
+<!--        android:id="@+id/phoneNumber"-->
+<!--        android:hint="Phone Number"/>-->
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        app:layout_constraintStart_toStartOf="@id/phoneNumber"
-        app:layout_constraintTop_toBottomOf="@id/phoneNumber"
-        app:layout_constraintEnd_toEndOf="@id/phoneNumber"
-        android:id="@+id/password"
-        android:inputType="numberPassword"
-        android:hint="Password"/>
+<!--    <androidx.appcompat.widget.AppCompatEditText-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="10dp"-->
+<!--        app:layout_constraintStart_toStartOf="@id/phoneNumber"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/phoneNumber"-->
+<!--        app:layout_constraintEnd_toEndOf="@id/phoneNumber"-->
+<!--        android:id="@+id/password"-->
+<!--        android:inputType="numberPassword"-->
+<!--        android:hint="Password"/>-->
 
     <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/loginBtn"
-        app:layout_constraintStart_toStartOf="@id/password"
-        app:layout_constraintTop_toBottomOf="@id/password"
-        android:text="Login"
+        android:id="@+id/setEnglishNamesBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="set english names"
         android:textAllCaps="false"
-        android:layout_marginTop="10dp"
+        android:textSize="18sp"
+        android:layout_margin="20dp"
         />
 
 
   <androidx.appcompat.widget.AppCompatButton
-      android:layout_width="wrap_content"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:id="@+id/getBtn"
-      app:layout_constraintStart_toStartOf="@id/loginBtn"
-      app:layout_constraintTop_toBottomOf="@id/loginBtn"
-      app:layout_constraintEnd_toEndOf="@id/loginBtn"
-      android:text="get user"
+      android:id="@+id/updateBtn"
+      android:textSize="18sp"
+      app:layout_constraintStart_toStartOf="@id/setEnglishNamesBtn"
+      app:layout_constraintTop_toBottomOf="@id/setEnglishNamesBtn"
+      app:layout_constraintEnd_toEndOf="@id/setEnglishNamesBtn"
+      android:text="update the list with WorkManager"
       android:textAllCaps="false"
-      android:layout_marginTop="10dp"
+      android:layout_margin="20dp"
       />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/getBtn"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/updateBtn"
+        app:layout_constraintTop_toBottomOf="@id/updateBtn"
+        app:layout_constraintEnd_toEndOf="@id/updateBtn"
+        android:text="get List"
+        android:textAllCaps="false"
+        android:layout_margin="20dp"
+        />
 
 
 

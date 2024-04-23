@@ -1,48 +1,45 @@
 package com.example.solutionxarch.features.login.data.repository.local
 
-import android.content.Context
-import androidx.test.core.app.ApplicationProvider
-import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.solutionxarch.core.data.repository.local.DataStoreStorageKeyValue
+import com.example.solutionxarch.core.data.repository.local.cipher.SecureDataStoreStorageKV
+import com.example.solutionxarch.features.login.data.models.entity.UserEntity
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.mockk
+import io.mockk.slot
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
-import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 
-@RunWith(AndroidJUnit4::class)
 class LoginLocalDataSourceTest {
 
-    private lateinit var testContext: Context
-    private lateinit var fakeLocalDataSource: FakeLocalDataSource
-    private val testValue = "Dummy_String"
 
-    @Before
-    fun setup() {
-        testContext = ApplicationProvider.getApplicationContext()
-        fakeLocalDataSource = FakeLocalDataSource(testContext)
+    private val secureDataSourceProvider = mockk<SecureDataStoreStorageKV<UserEntity>>(relaxed = true)
+    private val dataSourceProvider = mockk<DataStoreStorageKeyValue>(relaxed = true)
+    private val loginLocalDataSource = LoginLocalDataSource(secureDataSourceProvider, dataSourceProvider)
+
+
+
+    @Test
+    fun testDatastore_getDataForFirstTime_returnEmpty() = runTest {
+        val user = UserEntity(username = "Ebram", token = "token", email = "a@a.com", id = 1)
+
+        coEvery { secureDataSourceProvider.read() } returns user
+        val result = loginLocalDataSource.getUser()
+
+        assertEquals(result.token, user.token)
     }
 
     @Test
-    fun datastore_getDataForFirstTime() = runTest {
-        val result = fakeLocalDataSource.read(FakeStorageKeys.TEST_KEY, "")
-        assertEquals("", result)
+    fun testDataStore_saveAndGetDataFromLocal() = runTest {
+        val user = UserEntity(username = "Ebram", token = "token", email = "a@a.com", id = 1)
+
+        loginLocalDataSource.saveUser(user)
+        val captor = slot<UserEntity>()
+
+        coVerify { secureDataSourceProvider.secureSave(capture(captor)) }
+        assertEquals(user, captor.captured)
     }
-
-    @Test
-    fun dataStore_saveAndGetDataFromLocal() = runTest {
-        fakeLocalDataSource.save(FakeStorageKeys.TEST_KEY, testValue)
-        val result = fakeLocalDataSource.read(FakeStorageKeys.TEST_KEY, testValue)
-        assertEquals(testValue, result)
-    }
-
-    @Test
-    fun dataStore_saveAndGetEmptyFromLocal() = runTest {
-        fakeLocalDataSource.save(FakeStorageKeys.TEST_KEY, "")
-        val result = fakeLocalDataSource.read(FakeStorageKeys.TEST_KEY, "")
-        assertEquals(true, result.isEmpty())
-    }
-
-
 
 
 
