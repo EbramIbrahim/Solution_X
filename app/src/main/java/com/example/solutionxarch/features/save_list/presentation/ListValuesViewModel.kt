@@ -13,6 +13,7 @@ import com.example.solutionxarch.features.save_list.domain.usecase.GetListValues
 import com.example.solutionxarch.features.save_list.domain.usecase.SaveListValuesUC
 import com.example.solutionxarch.features.save_list.domain.usecase.UpdateListValuesWorker
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -66,29 +67,33 @@ class ListValuesViewModel @Inject constructor(
             workRequest
         )
 
-        workManager.getWorkInfoByIdFlow(workRequest.id).collect { workInfo ->
-            when(workInfo.state) {
-                WorkInfo.State.ENQUEUED -> {
-                    logger.debug(String::class.java, "Worker is ENQUEUED")
-                }
-                WorkInfo.State.RUNNING -> {
-                    logger.debug(String::class.java, "Worker is RUNNING")
-                }
-                WorkInfo.State.SUCCEEDED -> {
-                    workManager.cancelWorkById(workRequest.id)
-                    logger.debug(String::class.java, "Worker is SUCCEEDED")
-                    logger.debug(String::class.java, "The List has been updated Successfully..")
-                }
-                WorkInfo.State.FAILED -> {
-                    logger.debug(String::class.java, "Worker is FAILED")
-                }
-                WorkInfo.State.BLOCKED -> {
-                    logger.debug(String::class.java, "Worker is BLOCKED")
-                }
-                WorkInfo.State.CANCELLED -> {
-                    logger.debug(String::class.java, "Worker is CANCELLED")
+        workManager.getWorkInfoByIdFlow(workRequest.id).collectLatest { workInfo ->
+            workInfo?.let { result ->
+                when(result.state) {
+                    WorkInfo.State.ENQUEUED -> {
+                        logger.debug(String::class.java, "Worker is ENQUEUED")
+                    }
+                    WorkInfo.State.RUNNING -> {
+                        logger.debug(String::class.java, "Worker is RUNNING")
+                    }
+                    WorkInfo.State.SUCCEEDED -> {
+                        workManager.cancelWorkById(workRequest.id)
+                        logger.debug(String::class.java, "Worker is SUCCEEDED")
+                        logger.debug(String::class.java, "The List has been updated Successfully..")
+                    }
+                    WorkInfo.State.FAILED -> {
+                        logger.debug(String::class.java, "Worker is FAILED")
+                    }
+                    WorkInfo.State.BLOCKED -> {
+                        logger.debug(String::class.java, "Worker is BLOCKED")
+                    }
+                    WorkInfo.State.CANCELLED -> {
+                        logger.debug(String::class.java, "Worker is CANCELLED")
+                    }
                 }
             }
+
+
         }
     }
 
