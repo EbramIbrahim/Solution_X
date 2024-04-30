@@ -1,0 +1,44 @@
+package com.example.solutionxarch.core.presentation.helper
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.viewbinding.ViewBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+
+abstract class BaseFragment<binding : ViewBinding> : Fragment(),
+    CoroutineScope by CoroutineScope(Dispatchers.Main) {
+
+        protected lateinit var views: binding
+            private set
+
+    abstract val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> binding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        views = bindingInflater.invoke(inflater, container, false)
+        return views.root
+    }
+
+    override fun onDestroyView() {
+        coroutineContext[Job]?.cancel()
+        super.onDestroyView()
+    }
+}
+
+
+
+
+
+
+
+
+
+

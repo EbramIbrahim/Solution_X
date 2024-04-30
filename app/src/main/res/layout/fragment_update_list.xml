@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/setEnglishNamesBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="set english names"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:layout_margin="20dp"
+            />
+
+
+      <androidx.appcompat.widget.AppCompatButton
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/updateBtn"
+          android:textSize="18sp"
+          app:layout_constraintStart_toStartOf="@id/setEnglishNamesBtn"
+          app:layout_constraintTop_toBottomOf="@id/setEnglishNamesBtn"
+          app:layout_constraintEnd_toEndOf="@id/setEnglishNamesBtn"
+          android:text="update the list with WorkManager"
+          android:textAllCaps="false"
+          android:layout_margin="20dp"
+          />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/getBtn"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/updateBtn"
+            app:layout_constraintTop_toBottomOf="@id/updateBtn"
+            app:layout_constraintEnd_toEndOf="@id/updateBtn"
+            android:text="get List"
+            android:textAllCaps="false"
+            android:layout_margin="20dp"
+            />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

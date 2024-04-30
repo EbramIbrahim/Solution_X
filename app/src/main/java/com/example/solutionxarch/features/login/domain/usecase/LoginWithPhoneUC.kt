@@ -35,7 +35,7 @@ class LoginWithPhoneUC @Inject constructor(
                         val failureResource = if (e is SolutionXException)
                             e
                         else
-                            SolutionXException.Unknown(message = "Unknown error in GetPhoneUC: $e")
+                            SolutionXException.Unknown(message = "Unknown error in LoginWithPhoneUC: $e")
                         onResult.invoke(Result.Failure(failureResource))
                     }
                 }

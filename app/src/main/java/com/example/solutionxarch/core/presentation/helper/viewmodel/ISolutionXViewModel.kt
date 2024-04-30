@@ -1,4 +1,4 @@
-package com.example.solutionxarch.core.presentation
+package com.example.solutionxarch.core.presentation.helper.viewmodel
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
