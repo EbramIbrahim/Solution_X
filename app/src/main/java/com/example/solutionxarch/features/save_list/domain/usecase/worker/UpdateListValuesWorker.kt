@@ -1,4 +1,4 @@
-package com.example.solutionxarch.features.save_list.domain.usecase
+package com.example.solutionxarch.features.save_list.domain.usecase.worker
 
 import android.content.Context
 import android.util.Log
@@ -6,6 +6,7 @@ import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.Data
 import androidx.work.WorkerParameters
+import com.example.solutionxarch.features.save_list.domain.usecase.SaveListValuesUC
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 
@@ -23,13 +24,15 @@ class UpdateListValuesWorker @AssistedInject constructor(
         return try {
             names?.toList()?.let {
                 saveListValuesUC(it)
+                Log.d("UpdateListValuesWorker", "Success..!")
+                Log.d("UpdateListValuesWorker", names.toString())
+                Result.success(
+                    Data.Builder().putString("Success", "The List has been updated Successfully..")
+                        .build()
+                )
             }
-            Log.d("UpdateListValuesWorker", "Success..!")
-            Log.d("UpdateListValuesWorker", names.toString())
-            Result.success(
-                Data.Builder().putString("Success", "The List has been updated Successfully..")
-                    .build()
-            )
+            Result.failure(Data.Builder().putString("error", "The list is Empty").build())
+
         } catch (e: Exception) {
             Log.d("UpdateListValuesWorker", "Error..!")
             Result.failure(Data.Builder().putString("error", e.message.toString()).build())

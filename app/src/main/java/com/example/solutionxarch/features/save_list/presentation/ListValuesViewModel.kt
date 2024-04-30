@@ -11,7 +11,7 @@ import androidx.work.WorkManager
 import com.example.solutionxarch.core.android.helpers.logger.writer.LogcatWriter
 import com.example.solutionxarch.features.save_list.domain.usecase.GetListValuesUC
 import com.example.solutionxarch.features.save_list.domain.usecase.SaveListValuesUC
-import com.example.solutionxarch.features.save_list.domain.usecase.UpdateListValuesWorker
+import com.example.solutionxarch.features.save_list.domain.usecase.worker.UpdateListValuesWorker
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -48,7 +48,7 @@ class ListValuesViewModel @Inject constructor(
 
     private fun getListValues() = viewModelScope.launch {
         val names = getListValuesUC()
-        Log.d("names", names)
+        Log.d("TAG", names)
     }
 
 
@@ -77,7 +77,6 @@ class ListValuesViewModel @Inject constructor(
                         logger.debug(String::class.java, "Worker is RUNNING")
                     }
                     WorkInfo.State.SUCCEEDED -> {
-                        workManager.cancelWorkById(workRequest.id)
                         logger.debug(String::class.java, "Worker is SUCCEEDED")
                         logger.debug(String::class.java, "The List has been updated Successfully..")
                     }

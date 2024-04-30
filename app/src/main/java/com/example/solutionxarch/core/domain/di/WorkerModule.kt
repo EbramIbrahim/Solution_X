@@ -1,4 +1,4 @@
-package com.example.solutionxarch.features.save_list.domain.di
+package com.example.solutionxarch.core.domain.di
 
 import android.content.Context
 import android.util.Log
