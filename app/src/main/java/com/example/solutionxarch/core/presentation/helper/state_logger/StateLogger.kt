@@ -1,4 +1,4 @@
-package com.example.solutionxarch.core.presentation.helper
+package com.example.solutionxarch.core.presentation.helper.state_logger
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver

@@ -10,8 +10,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.solutionxarch.R
 import com.example.solutionxarch.core.presentation.helper.BaseFragment
-import com.example.solutionxarch.core.presentation.helper.IStateLogger
-import com.example.solutionxarch.core.presentation.helper.StateLogger
+import com.example.solutionxarch.core.presentation.helper.state_logger.IStateLogger
+import com.example.solutionxarch.core.presentation.helper.state_logger.StateLogger
 import com.example.solutionxarch.databinding.FragmentLoginBinding
 import com.example.solutionxarch.features.login.data.models.request.PhoneRequest
 import com.example.solutionxarch.features.login.data.models.request.UserRequest
