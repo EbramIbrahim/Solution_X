@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.viewbinding.ViewBinding
 import com.example.solutionxarch.R
+import com.example.solutionxarch.core.common.SolutionXException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -41,6 +42,10 @@ abstract class BaseActivity<binding : ViewBinding> : AppCompatActivity(),
 
     open fun onViewBindingCreated(savedInstanceState: Bundle?) {}
 
+
+    protected fun networkErrorHandler(exception: SolutionXException) {
+        TODO("Not yet implemented")
+    }
 
     @CallSuper
     override fun onDestroy() {
