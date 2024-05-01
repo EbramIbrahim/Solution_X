@@ -53,18 +53,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), IStateLogger by Stat
     }
 
     private fun collectLoginState() {
-        launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                loginViewModel.loginState.collectLatest { state ->
-                   if (state.user != null) {
-                       findNavController().navigate(R.id.updateListFragment)
-                   }
-                }
+        collectStateWithLifeCycle(loginViewModel.loginState) { state ->
+            if (state.user != null) {
+                findNavController().navigate(R.id.updateListFragment)
             }
         }
     }
-
-
 }
 
 

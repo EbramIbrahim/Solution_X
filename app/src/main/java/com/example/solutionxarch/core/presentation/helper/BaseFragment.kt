@@ -16,8 +16,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-abstract class BaseFragment<binding : ViewBinding> : Fragment(),
-    CoroutineScope by CoroutineScope(Dispatchers.Main) {
+abstract class BaseFragment<binding : ViewBinding> : Fragment(){
 
         protected lateinit var views: binding
             private set
@@ -43,10 +42,6 @@ abstract class BaseFragment<binding : ViewBinding> : Fragment(),
         }
     }
 
-    override fun onDestroyView() {
-        coroutineContext[Job]?.cancel()
-        super.onDestroyView()
-    }
 }
 
 
