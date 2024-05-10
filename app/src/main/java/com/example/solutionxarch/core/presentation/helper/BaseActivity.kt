@@ -14,14 +14,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 
-abstract class BaseActivity<binding : ViewBinding> : AppCompatActivity(),
+abstract class BaseActivity<binding : ViewBinding>(
+    private val bindingInflater: (LayoutInflater) -> binding
+) : AppCompatActivity(),
     CoroutineScope by CoroutineScope(Dispatchers.Main) {
 
 
     protected lateinit var views: binding
         private set
-
-    abstract val bindingInflater: (LayoutInflater) -> binding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +32,7 @@ abstract class BaseActivity<binding : ViewBinding> : AppCompatActivity(),
 
         onViewBindingCreated(savedInstanceState)
 
+
         enableEdgeToEdge()
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -40,8 +41,7 @@ abstract class BaseActivity<binding : ViewBinding> : AppCompatActivity(),
         }
     }
 
-    open fun onViewBindingCreated(savedInstanceState: Bundle?) {}
-
+    abstract fun onViewBindingCreated(savedInstanceState: Bundle?)
 
     protected fun networkErrorHandler(exception: SolutionXException) {
         TODO("Not yet implemented")

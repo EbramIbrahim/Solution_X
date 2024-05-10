@@ -39,4 +39,24 @@ class RemoteDataSourceProvider(
         )
         return Gson().fromJson(response.string(), responseWrappedModel)
     }
+
+    override suspend fun <ResponseBody, RequestBody> delete(
+        responseWrappedModel: Type,
+        endpoint: String,
+        queries: Map<String, Any>?,
+        headers: Map<String, Any>?,
+        requestBody: RequestBody?
+    ): ResponseBody {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun <ResponseBody, RequestBody> put(
+        responseWrappedModel: Type,
+        endpoint: String,
+        queries: Map<String, Any>?,
+        headers: Map<String, Any>?,
+        requestBody: RequestBody?
+    ): ResponseBody {
+        TODO("Not yet implemented")
+    }
 }

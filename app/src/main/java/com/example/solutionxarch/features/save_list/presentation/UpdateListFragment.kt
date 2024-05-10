@@ -18,9 +18,7 @@ class UpdateListFragment: BaseFragment<FragmentUpdateListBinding>() {
 
     private val listValuesViewModel by viewModels<ListValuesViewModel>()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onViewBindingCreated(savedStateHandle: Bundle?) {
         views.setEnglishNamesBtn.setOnClickListener {
 
             val names = listOf(

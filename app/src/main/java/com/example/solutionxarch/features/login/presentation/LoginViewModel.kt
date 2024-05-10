@@ -48,7 +48,8 @@ class LoginViewModel @Inject constructor(
 
 
     private fun loginWithPhone(userRequest: UserRequest) {
-        loginWithPhoneUC(viewModelScope, request = userRequest, onResult = { result ->
+        loginWithPhoneUC
+        loginWithPhoneUC.invoke(viewModelScope, request = userRequest, onResult = { result ->
             when (result) {
                 is Result.Failure -> {
                     LogcatWriter("Tag", true).debug(message = result.error.toString(), clazz = String::class.java)

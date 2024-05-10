@@ -20,6 +20,22 @@ interface IRemoteDataSourceProvider {
         headers: Map<String, Any>? = null,
     ): ResponseBody
 
+    suspend fun <ResponseBody, RequestBody> delete(
+        responseWrappedModel: Type,
+        endpoint: String,
+        queries: Map<String, Any>? = null,
+        headers: Map<String, Any>? = null,
+        requestBody: RequestBody? = null
+    ): ResponseBody
+
+    suspend fun <ResponseBody, RequestBody> put(
+        responseWrappedModel: Type,
+        endpoint: String,
+        queries: Map<String, Any>? = null,
+        headers: Map<String, Any>? = null,
+        requestBody: RequestBody? = null
+    ): ResponseBody
+
 }
 
 

@@ -17,15 +17,17 @@ abstract class SolutionXViewModel<Action: ViewAction, Event: ViewEvent, State: V
 ): ISolutionXViewModel<Action, Event, State>, ViewModel() {
 
 
+    // StateFlow for current state
     private val _viewState: MutableStateFlow<State> = MutableStateFlow(initialState)
     override val state: StateFlow<State>
         get() = _viewState.asStateFlow()
 
-
-    private val _eventChannel: Channel<Event> = Channel(Channel.UNLIMITED)
+    // Channel for UI EVENTS
+    private val _singleEventChannel: Channel<Event> = Channel(Channel.UNLIMITED)
     override val singleEvent: Flow<Event>
-        get() = _eventChannel.receiveAsFlow()
+        get() = _singleEventChannel.receiveAsFlow()
 
+    // SharedFlow for actions result due to Event
     private val _viewAction = MutableSharedFlow<Action>(extraBufferCapacity = Int.MAX_VALUE)
 
     override fun processIntent(action: Action) {
@@ -34,7 +36,7 @@ abstract class SolutionXViewModel<Action: ViewAction, Event: ViewEvent, State: V
 
 
     protected fun sendEvent(event: Event) {
-        _eventChannel.trySend(event)
+        _singleEventChannel.trySend(event)
     }
 
     fun setState(newState: State) {
@@ -59,7 +61,7 @@ abstract class SolutionXViewModel<Action: ViewAction, Event: ViewEvent, State: V
 
     override fun onCleared() {
         super.onCleared()
-        _eventChannel.close()
+        _singleEventChannel.close()
     }
 
 
